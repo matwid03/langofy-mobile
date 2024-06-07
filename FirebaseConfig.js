@@ -33,5 +33,3 @@ const { auth: FIREBASE_AUTH } = initializeFirebase();
 
 export { FIREBASE_AUTH };
 
-
-//./node_modules/@firebase/app

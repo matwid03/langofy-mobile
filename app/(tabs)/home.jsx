@@ -5,7 +5,7 @@ import { FIREBASE_AUTH } from '../../FirebaseConfig';
 const Home = () => {
 	return (
 		<View className='flex-1 items-center justify-center'>
-			<Text>Witaj: {FIREBASE_AUTH.currentUser?.displayName}!</Text>
+			<Text>Elo</Text>
 		</View>
 	);
 };

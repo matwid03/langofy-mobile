@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import { Link, router } from 'expo-router';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 
 const SignUp = () => {
@@ -20,7 +20,14 @@ const SignUp = () => {
 		} else {
 			setIsLoading(true);
 			try {
-				await createUserWithEmailAndPassword(auth, email, password);
+				const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+				const user = userCredential.user;
+
+				await updateProfile(user, {
+					displayName: username,
+				});
+
 				router.replace('sign-in');
 			} catch (error) {
 				console.log(error);

@@ -2,28 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Redirect, router } from 'expo-router';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
+import { useGlobalContext } from '../context/GlobalProvider';
 
 const App = () => {
-	const [user, setUser] = useState(null);
-	const auth = FIREBASE_AUTH;
+	const { user, isLoading, isLoggedIn } = useGlobalContext();
 
-	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, (user) => {
-			console.log('User: ', user);
-			if (user) {
-				setUser(user);
-			} else {
-				setUser(null);
-			}
-		});
-
-		return () => unsubscribe();
-	}, [auth]);
-
-	if (user) {
-		return <Redirect href={'/home'} />;
+	if (!isLoading && isLoggedIn) {
+		console.log(user);
+		return <Redirect href='/home' />;
 	} else {
-		return <Redirect href={'/sign-in'} />;
+		console.log(user);
+		return <Redirect href='/sign-in' />;
 	}
 };
 
