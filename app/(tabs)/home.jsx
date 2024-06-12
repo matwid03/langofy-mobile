@@ -11,10 +11,10 @@ const Home = () => {
 		<SafeAreaView className='bg-slate-900 h-full'>
 			<ScrollView>
 				<View className='w-full items-center justify-center min-h-[85vh] px-4 '>
-					<Text className='text-white'>Wybierz Poziom</Text>
+					<Text className='text-white text-4xl'>Wybierz Poziom</Text>
 					<CustomButton title='Słówka' handlePress={() => navigation.navigate('translation')} containerStyles='mt-7 w-full' />
 					<CustomButton title='Obrazki' handlePress={() => navigation.navigate('imageWord')} containerStyles='mt-7 w-full' />
-					<CustomButton title='Zadania' handlePress={() => navigation.navigate('fillGaps')} containerStyles='mt-7 w-full' />
+					<CustomButton title='Zdania' handlePress={() => navigation.navigate('fillGaps')} containerStyles='mt-7 w-full' />
 				</View>
 			</ScrollView>
 		</SafeAreaView>

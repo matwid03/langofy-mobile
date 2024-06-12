@@ -10,7 +10,6 @@ const Profile = () => {
 	const [username, setUsername] = useState('');
 
 	useEffect(() => {
-		// Pobierz nazwę użytkownika po zalogowaniu
 		const fetchUsername = async () => {
 			try {
 				const currentUser = FIREBASE_AUTH.currentUser;
