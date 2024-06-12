@@ -6,10 +6,8 @@ const App = () => {
 	const { user, isLoading, isLoggedIn } = useGlobalContext();
 
 	if (!isLoading && isLoggedIn) {
-		console.log(user);
 		return <Redirect href='/home' />;
 	} else {
-		console.log(user);
 		return <Redirect href='/sign-in' />;
 	}
 };
