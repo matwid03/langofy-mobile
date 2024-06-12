@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+// File path: /components/AddWordToDictionary.jsx
+import React, { useState, useEffect } from 'react';
+import { View } from 'react-native';
 import CustomButton from './CustomButton';
 import FormField from './FormField';
 
@@ -7,13 +8,17 @@ const AddWordToDictionary = ({ addWord }) => {
 	const [word, setWord] = useState('');
 	const [translation, setTranslation] = useState('');
 
-	const handleSubmit = () => {
+	useEffect(() => {
+		console.log('addWord function:', addWord);
+	}, [addWord]);
+
+	const handleSubmit = async () => {
 		if (!word || !translation) {
 			alert('Wprowadź słowo i jego tłumaczenie!');
 			return;
 		}
 
-		addWord(word, translation);
+		await addWord(word, translation);
 
 		setWord('');
 		setTranslation('');

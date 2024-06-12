@@ -5,7 +5,8 @@ import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import { Link, router } from 'expo-router';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { FIREBASE_AUTH } from '../../FirebaseConfig';
+import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
+import { doc, setDoc } from 'firebase/firestore';
 
 const SignUp = () => {
 	const [username, setUsername] = useState('');
@@ -28,7 +29,15 @@ const SignUp = () => {
 					displayName: username,
 				});
 
+				const userDocRef = doc(FIRESTORE_DB, 'users', user.uid);
+				await setDoc(userDocRef, {
+					username: username,
+					email: email,
+					dictionary: [],
+				});
+
 				router.replace('sign-in');
+				alert('Pomyślna rejestracja!');
 			} catch (error) {
 				console.log(error);
 				alert(error.message);
