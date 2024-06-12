@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { Redirect, router } from 'expo-router';
-import { FIREBASE_AUTH } from '../FirebaseConfig';
+import React from 'react';
+import { Redirect } from 'expo-router';
 import { useGlobalContext } from '../context/GlobalProvider';
 
 const App = () => {

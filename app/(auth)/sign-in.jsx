@@ -22,7 +22,7 @@ const SignIn = () => {
 				await signInWithEmailAndPassword(auth, email, password);
 				router.replace('/home');
 			} catch (error) {
-				alert('Nieprawidłowy login lub hasło!');
+				alert(e, 'Nieprawidłowy login lub hasło!');
 			} finally {
 				setIsLoading(false);
 			}
