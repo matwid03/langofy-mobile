@@ -14,7 +14,6 @@ const GlobalProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log('User: ', FIREBASE_AUTH.currentUser?.email);
       if (user) {
         setIsLoggedIn(true);
         setUser(user);

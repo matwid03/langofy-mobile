@@ -1,4 +1,3 @@
-// File path: /components/DictionaryList.jsx
 import React, { useState, useEffect } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { arrayRemove, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
@@ -42,12 +41,12 @@ const DictionaryList = () => {
 	};
 
 	const renderItem = ({ item }) => (
-		<View className='p-2 border-b border-gray-300 flex-row justify-between items-center gap-2'>
-			<Text className='text-white'>
+		<View className='p-2 border-b border-gray-300 flex-row justify-between items-center gap-2 mt-2 w-80'>
+			<Text className='text-white text-2xl'>
 				{item.word} - {item.translation}
 			</Text>
 			<TouchableOpacity onPress={() => handleRemoveWord(item)}>
-				<Text className='text-red-700'>X</Text>
+				<Text className='text-red-700 text-2xl'>X</Text>
 			</TouchableOpacity>
 		</View>
 	);

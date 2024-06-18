@@ -1,4 +1,3 @@
-// File path: /components/AddWordToDictionary.jsx
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import CustomButton from './CustomButton';
