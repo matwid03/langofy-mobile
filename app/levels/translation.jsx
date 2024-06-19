@@ -36,6 +36,7 @@ const Translation = () => {
 					<View className='p-4'>
 						<Text className='text-white text-2xl'>{item.word}</Text>
 						<Text className='text-white text-xl'>{item.translation}</Text>
+						<Text className='text-white text-xl'>{item.sentence}</Text>
 					</View>
 				)}
 				keyExtractor={(item, index) => index.toString()}
