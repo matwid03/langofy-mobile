@@ -7,10 +7,6 @@ const AddWordToDictionary = ({ addWord }) => {
 	const [word, setWord] = useState('');
 	const [translation, setTranslation] = useState('');
 
-	useEffect(() => {
-		console.log('addWord function:', addWord);
-	}, [addWord]);
-
 	const handleSubmit = async () => {
 		if (!word || !translation) {
 			alert('Wprowadź słowo i jego tłumaczenie!');
