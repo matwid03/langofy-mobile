@@ -35,6 +35,9 @@ const Translation = () => {
 
 	const selectRandomWord = (wordsList) => {
 		const randomIndex = Math.floor(Math.random() * wordsList.length);
+		if (currentWord === wordsList[randomIndex]) {
+			selectRandomWord(wordsList);
+		}
 		const selectedWord = wordsList[randomIndex];
 
 		setCurrentWord(selectedWord);
