@@ -4,10 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import Translation from '../levels/translation';
 import ImageWord from '../levels/imageWord';
-import FillGaps from '../levels/fillGaps';
 import Home from './home';
 import Dictionary from './dictionary';
 import Profile from './profile';
+import Sentences from '../levels/sentences';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -26,7 +26,7 @@ const HomeStack = () => {
 			<Stack.Screen name='home' component={Home} />
 			<Stack.Screen name='translation' component={Translation} />
 			<Stack.Screen name='imageWord' component={ImageWord} />
-			<Stack.Screen name='fillGaps' component={FillGaps} />
+			<Stack.Screen name='sentences' component={Sentences} />
 		</Stack.Navigator>
 	);
 };

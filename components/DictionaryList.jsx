@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { arrayRemove, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { arrayRemove, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../FirebaseConfig';
 
 const DictionaryList = () => {

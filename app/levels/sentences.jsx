@@ -1,15 +1,15 @@
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { doc, getDoc } from 'firebase/firestore';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import CustomButton from '../../components/CustomButton';
-import FormField from '../../components/FormField';
+import { ScrollView } from 'react-native-gesture-handler';
 
-const FillGaps = () => {
+const Sentences = () => {
 	const [words, setWords] = useState([]);
 	const [currentWord, setCurrentWord] = useState(null);
-	const [userInput, setUserInput] = useState('');
+	const [selectedWords, setSelectedWords] = useState([]);
 	const [showResult, setShowResult] = useState(false);
 	const [isCorrect, setIsCorrect] = useState(false);
 
@@ -43,15 +43,30 @@ const FillGaps = () => {
 		}
 		const selectedWord = wordsList[randomIndex];
 
+		const shuffledChoices = shuffleArray(selectedWord.choices);
+		selectedWord.choices = shuffledChoices;
+
 		setCurrentWord(selectedWord);
+		setSelectedWords([]);
 		setShowResult(false);
 		setIsCorrect(false);
-		setUserInput('');
+	};
+
+	const handleWordClick = (word) => {
+		setSelectedWords([...selectedWords, word]);
+	};
+
+	const handleRemoveWord = (index) => {
+		const newSelectedWords = [...selectedWords];
+		newSelectedWords.splice(index, 1);
+		setSelectedWords(newSelectedWords);
 	};
 
 	const handleCheckAnswer = () => {
-		const userAnswer = currentWord.sentenceWithGap.replace('___', userInput.trim().toLowerCase());
-		const correctAnswer = currentWord.sentenceWithGap.replace('___', currentWord.word.toLowerCase());
+		const userAnswer = selectedWords.join(' ').toLowerCase();
+		const correctAnswer = currentWord.sentenceAng.toLowerCase();
+		console.log(userAnswer);
+		console.log(correctAnswer);
 		if (userAnswer === correctAnswer) {
 			setIsCorrect(true);
 			console.log('Odpowiedź poprawna');
@@ -64,19 +79,38 @@ const FillGaps = () => {
 		setShowResult(true);
 	};
 
+	const shuffleArray = (array) => {
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[array[i], array[j]] = [array[j], array[i]];
+		}
+		return array;
+	};
+
+	const renderChoices = () => {
+		return (
+			<View className='flex-row flex-wrap justify-center'>
+				{currentWord.choices.map((item, index) => (
+					<CustomButton key={index} title={item} handlePress={() => handleWordClick(item)} containerStyles='mr-8 mb-4 min-w-[40] px-4' disabled={selectedWords.includes(item)} />
+				))}
+			</View>
+		);
+	};
+
 	return (
-		<SafeAreaView className='bg-slate-900 h-full '>
+		<SafeAreaView className='bg-slate-900 h-full'>
 			{currentWord && (
-				<View className='mt-16 w-full items-center justify-center'>
+				<View className='mt-10 w-full items-center justify-center'>
 					<Text className='text-white text-3xl mb-4'>{currentWord.sentence}</Text>
-					<FormField value={userInput} handleChangeText={(text) => setUserInput(text)} otherStyles='mb-7 w-80' placeholder='Podaj odpowiedź...' />
-					<CustomButton
-						containerStyles='mb-8 w-80'
-						title='Sprawdź'
-						handlePress={() => {
-							handleCheckAnswer();
-						}}
-					/>
+					<View className='min-h-[70px] bg-white w-80 p-4 mb-4 flex-wrap flex flex-row '>
+						{selectedWords.map((word, index) => (
+							<TouchableOpacity key={index} onPress={() => handleRemoveWord(index)}>
+								<Text className='text-black text-3xl'>{word} </Text>
+							</TouchableOpacity>
+						))}
+					</View>
+					<ScrollView className='flex mb-10 ml-6'>{renderChoices()}</ScrollView>
+					<CustomButton containerStyles='mb-8 w-80' title='Sprawdź' handlePress={handleCheckAnswer} />
 					{showResult && <Text className='text-white'>{isCorrect ? 'Odpowiedź poprawna!' : 'Odpowiedź niepoprawna'}</Text>}
 					<CustomButton containerStyles='mt-8 w-80' title='Następne słowo' handlePress={() => selectRandomWord(words)} />
 				</View>
@@ -85,4 +119,4 @@ const FillGaps = () => {
 	);
 };
 
-export default FillGaps;
+export default Sentences;

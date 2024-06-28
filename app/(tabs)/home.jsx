@@ -14,7 +14,7 @@ const Home = () => {
 					<Text className='text-white text-4xl'>Wybierz Poziom</Text>
 					<CustomButton title='Słówka' handlePress={() => navigation.navigate('translation')} containerStyles='mt-7 w-full' />
 					<CustomButton title='Obrazki' handlePress={() => navigation.navigate('imageWord')} containerStyles='mt-7 w-full' />
-					<CustomButton title='Zdania' handlePress={() => navigation.navigate('fillGaps')} containerStyles='mt-7 w-full' />
+					<CustomButton title='Zdania' handlePress={() => navigation.navigate('sentences')} containerStyles='mt-7 w-full' />
 				</View>
 			</ScrollView>
 		</SafeAreaView>
