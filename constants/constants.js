@@ -384,14 +384,6 @@ export const Easy = [
     choices: ["Open", "Close", "the", "window", "house", "room", "enter", "exit", "view", "glass"]
   },
   {
-    word: "yard",
-    sentence: "Bawię się na podwórku",
-    imgUrl: null,
-    translation: "podwórko",
-    sentenceAng: "I am playing in the yard",
-    choices: ["I", "She", "am", "playing", "in", "the", "yard", "playground", "grass", "fun"]
-  },
-  {
     word: "zebra",
     sentence: "Widziałem zebrę w zoo",
     imgUrl: "https://static.vecteezy.com/system/resources/previews/036/894/400/original/ai-generated-cute-zebra-cartoon-illustration-for-kids-on-transparent-background-free-png.png",
@@ -400,3 +392,31 @@ export const Easy = [
     choices: ["I", "saw", "zoo", "a", "zebra", "animal", "stripes", "the", "at", "Africa"]
   }
 ];
+
+export const Medium = [
+  {
+    word: "yard",
+    sentence: "Bawię się na podwórku",
+    imgUrl: 'https://png.pngtree.com/png-vector/20231017/ourmid/pngtree-fresh-apple-fruit-red-png-image_10203073.png',
+    translation: "podwórko",
+    sentenceAng: "I am playing in the yard",
+    choices: ["I", "She", "am", "playing", "in", "the", "yard", "playground", "grass", "fun"]
+  },
+];
+
+export const Hard = [
+  {
+    word: "complicated",
+    sentence: "Instrukcje były zbyt skomplikowane, aby je śledzić",
+    imageUrl: null,
+    translation: "skomplikowany",
+    sentenceAng: "The instructions were too complicated to follow",
+    choices: ['The', 'instructions', 'are', 'were', 'just', 'too', 'complicated', 'to', 'follow', 'common', 'elaborate']
+  },
+];
+
+const pointsByDifficulty = {
+  easy: 1,
+  medium: 2,
+  hard: 3
+};

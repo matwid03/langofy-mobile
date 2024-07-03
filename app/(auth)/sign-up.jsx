@@ -34,6 +34,7 @@ const SignUp = () => {
 					username: username,
 					email: email,
 					dictionary: [],
+					points: 0,
 				});
 
 				router.replace('sign-in');
