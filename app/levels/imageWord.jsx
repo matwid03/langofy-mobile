@@ -9,6 +9,7 @@ import { addWordsToDatabase } from '../../constants/addWordsToDatabase';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ImageWord = () => {
 	const [words, setWords] = useState([]);
@@ -18,6 +19,7 @@ const ImageWord = () => {
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [points, setPoints] = useState(0);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const navigation = useNavigation();
 	const route = useRoute();
@@ -58,6 +60,9 @@ const ImageWord = () => {
 	};
 
 	const handleCheckAnswer = async () => {
+		if (isLoading) return;
+		setIsLoading(true);
+
 		if (userInput.trim().toLowerCase() === currentWord.word.toLowerCase()) {
 			setIsCorrect(true);
 			console.log('Odpowiedź poprawna');
@@ -73,12 +78,14 @@ const ImageWord = () => {
 			await updateUserPoints(points + (isCorrect ? 1 : 0));
 			navigation.navigate('home');
 		} else {
-			setCurrentIndex((prevIndex) => prevIndex + 1);
-			setCurrentWord(words[currentIndex + 1]);
-			setUserInput('');
-			setShowResult(false);
+			setTimeout(() => {
+				setCurrentIndex((prevIndex) => prevIndex + 1);
+				setCurrentWord(words[currentIndex + 1]);
+				setUserInput('');
+				setShowResult(false);
+				setIsLoading(false);
+			}, 1500);
 		}
-		console.log(points);
 	};
 
 	const updateUserPoints = async (finalPoints) => {
@@ -98,8 +105,7 @@ const ImageWord = () => {
 		<SafeAreaView className='bg-slate-900 h-full '>
 			{currentWord && (
 				<TouchableWithoutFeedback className='bg-slate-900 h-full ' onPress={Keyboard.dismiss} accessible={false}>
-					<View className='mt-16 w-full items-center justify-center'>
-						<Text>{currentWord.word}</Text>
+					<View className='mt-20 w-full items-center justify-center'>
 						<Image
 							className='w-80 h-80'
 							source={{
@@ -114,8 +120,20 @@ const ImageWord = () => {
 							handlePress={() => {
 								handleCheckAnswer();
 							}}
+							disabled={isLoading}
 						/>
-						{showResult && <Text className='text-white'>{isCorrect ? 'Odpowiedź poprawna!' : 'Odpowiedź niepoprawna'}</Text>}
+						{showResult && (
+							<View className='flex flex-column items-center justify-center mt-4'>
+								{isCorrect ? <Icon name='check-circle' size={30} color='green' /> : <Icon name='times-circle' size={30} color='red' />}
+								<Text className='text-white mb-4 mt-2 text-xl'>{isCorrect ? 'Odpowiedź poprawna!' : 'Odpowiedź niepoprawna'}</Text>
+							</View>
+						)}
+					</View>
+					<View className='absolute bottom-4 left-0 right-0 items-center'>
+						<View className='bg-gray-700 w-11/12 h-4 rounded-full'>
+							<View className='bg-green-500 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />
+						</View>
+						<Text className='text-white mt-2'>{`${currentIndex + 1} / 10`}</Text>
 					</View>
 				</TouchableWithoutFeedback>
 			)}
