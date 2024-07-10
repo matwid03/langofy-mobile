@@ -11,6 +11,7 @@ import { useRoute } from '@react-navigation/native';
 
 const Translation = () => {
 	const [words, setWords] = useState([]);
+	const [fullWordsList, setFullWordsList] = useState([]);
 	const [currentWord, setCurrentWord] = useState(null);
 	const [options, setOptions] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -36,11 +37,12 @@ const Translation = () => {
 				const wordList = wordRef.data();
 				if (wordList) {
 					const wordsArray = Object.values(wordList);
-					const selectedWords = shuffleArray(wordsArray).slice(0, 10);
+					const selectedWords = getUniqueWords(wordsArray, 10);
 
+					setFullWordsList(wordsArray);
 					setWords(selectedWords);
 					setCurrentWord(selectedWords[0]);
-					selectRandomWord(selectedWords, 0);
+					generateOptions(selectedWords[0], wordsArray);
 				}
 			} catch (error) {
 				console.error('Błąd podczas pobierania słów:', error);
@@ -49,11 +51,23 @@ const Translation = () => {
 		fetchWords();
 	}, [difficulty]);
 
-	const selectRandomWord = (wordsList, index) => {
-		const selectedWord = wordsList[index];
-		setCurrentWord(selectedWord);
+	const getUniqueWords = (array, count) => {
+		const uniqueSet = new Set();
+		const result = [];
+		while (uniqueSet.size < count && array.length > 0) {
+			const randomIndex = Math.floor(Math.random() * array.length);
+			const word = array[randomIndex];
+			if (!uniqueSet.has(word.word)) {
+				uniqueSet.add(word.word);
+				result.push(word);
+			}
+		}
+		return result;
+	};
+
+	const generateOptions = (selectedWord, wordsList) => {
 		const correctTranslation = selectedWord.translation;
-		const option1 = correctTranslation;
+		let option1 = correctTranslation;
 		let option2, option3;
 
 		do {
@@ -70,8 +84,7 @@ const Translation = () => {
 			{ id: 3, text: option3, correct: false },
 		];
 
-		const shuffledOptions = shuffleArray(optionsArray);
-		setOptions(shuffledOptions);
+		setOptions(shuffleArray(optionsArray));
 	};
 
 	const shuffleArray = (array) => {
@@ -100,11 +113,12 @@ const Translation = () => {
 			setTimeout(() => {
 				{
 					setCurrentIndex((prevIndex) => prevIndex + 1);
-					selectRandomWord(words, currentIndex + 1);
+					setCurrentWord(words[currentIndex + 1]);
+					generateOptions(words[currentIndex + 1], fullWordsList);
 					setShowResult(false);
 					setIsLoading(false);
 				}
-			}, 1500);
+			}, 1000);
 	};
 
 	const updateUserPoints = async (finalPoints) => {

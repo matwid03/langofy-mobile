@@ -4,8 +4,8 @@ import { Easy, Medium, Hard } from "./constants";
 
 export const addWordsToDatabase = () => {
   try {
-    Medium.map(async (word, index) => {
-      await updateDoc(doc(FIRESTORE_DB, 'words', 'medium'), {
+    Hard.map(async (word, index) => {
+      await updateDoc(doc(FIRESTORE_DB, 'words', 'hard'), {
         [index]: { ...word },
       });
     });

@@ -20,6 +20,7 @@ const ImageWord = () => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [points, setPoints] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
+	const [keyboardVisible, setKeyboardVisible] = useState(false);
 
 	const navigation = useNavigation();
 	const route = useRoute();
@@ -27,6 +28,13 @@ const ImageWord = () => {
 
 	useEffect(() => {
 		// addWordsToDatabase();
+		const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+			setKeyboardVisible(true);
+		});
+
+		const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+			setKeyboardVisible(false);
+		});
 
 		const user = FIREBASE_AUTH.currentUser;
 		if (!user) {
@@ -40,23 +48,33 @@ const ImageWord = () => {
 				const wordList = wordRef.data();
 				if (wordList) {
 					const wordsArray = Object.values(wordList).filter((word) => word.imgUrl);
-					const selectedWords = shuffleArray(wordsArray).slice(0, 10);
-					setWords(selectedWords);
-					setCurrentWord(selectedWords[0]);
+					const uniqueWords = getUniqueWords(wordsArray, 10);
+					setWords(uniqueWords);
+					setCurrentWord(uniqueWords[0]);
 				}
 			} catch (error) {
 				console.error('Błąd podczas pobierania słów:', error);
 			}
 		};
 		fetchWords();
+		return () => {
+			keyboardDidShowListener.remove();
+			keyboardDidHideListener.remove();
+		};
 	}, [difficulty]);
 
-	const shuffleArray = (array) => {
-		for (let i = array.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[array[i], array[j]] = [array[j], array[i]];
+	const getUniqueWords = (array, count) => {
+		const uniqueSet = new Set();
+		const result = [];
+		while (uniqueSet.size < count && array.length > 0) {
+			const randomIndex = Math.floor(Math.random() * array.length);
+			const word = array[randomIndex];
+			if (!uniqueSet.has(word.word)) {
+				uniqueSet.add(word.word);
+				result.push(word);
+			}
 		}
-		return array;
+		return result;
 	};
 
 	const handleCheckAnswer = async () => {
@@ -84,7 +102,7 @@ const ImageWord = () => {
 				setUserInput('');
 				setShowResult(false);
 				setIsLoading(false);
-			}, 1500);
+			}, 1000);
 		}
 	};
 
@@ -126,15 +144,18 @@ const ImageWord = () => {
 							<View className='flex flex-column items-center justify-center mt-4'>
 								{isCorrect ? <Icon name='check-circle' size={30} color='green' /> : <Icon name='times-circle' size={30} color='red' />}
 								<Text className='text-white mb-4 mt-2 text-xl'>{isCorrect ? 'Odpowiedź poprawna!' : 'Odpowiedź niepoprawna'}</Text>
+								{/* <Text>{currentWord.word}</Text> */}
 							</View>
 						)}
 					</View>
-					<View className='absolute bottom-4 left-0 right-0 items-center'>
-						<View className='bg-gray-700 w-11/12 h-4 rounded-full'>
-							<View className='bg-green-500 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />
+					{!keyboardVisible && (
+						<View className='absolute bottom-4 left-0 right-0 items-center'>
+							<View className='bg-gray-700 w-11/12 h-4 rounded-full'>
+								<View className='bg-green-500 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />
+							</View>
+							<Text className='text-white mt-2'>{`${currentIndex + 1} / 10`}</Text>
 						</View>
-						<Text className='text-white mt-2'>{`${currentIndex + 1} / 10`}</Text>
-					</View>
+					)}
 				</TouchableWithoutFeedback>
 			)}
 		</SafeAreaView>

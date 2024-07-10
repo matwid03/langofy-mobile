@@ -18,6 +18,7 @@ const Sentences = () => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [points, setPoints] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
+	const [shuffledChoices, setShuffledChoices] = useState([]);
 
 	const navigation = useNavigation();
 	const route = useRoute();
@@ -35,10 +36,13 @@ const Sentences = () => {
 				const wordList = wordRef.data();
 				if (wordList) {
 					const wordsArray = Object.values(wordList).filter((word) => word.sentence && word.sentenceAng);
-					const selectedWords = shuffleArray(wordsArray).slice(0, 10);
+					const selectedWords = getUniqueWords(wordsArray, 10);
 
 					setWords(selectedWords);
-					setCurrentWord(shuffleWordChoices(selectedWords[0]));
+					if (selectedWords.length > 0) {
+						setCurrentWord(selectedWords[0]);
+						setShuffledChoices(shuffleArray(selectedWords[0].choices));
+					}
 				}
 			} catch (error) {
 				console.error('Błąd podczas pobierania słów:', error);
@@ -47,17 +51,26 @@ const Sentences = () => {
 		fetchWords();
 	}, [difficulty]);
 
+	const getUniqueWords = (array, count) => {
+		const uniqueSet = new Set();
+		const result = [];
+		while (uniqueSet.size < count && array.length > 0) {
+			const randomIndex = Math.floor(Math.random() * array.length);
+			const word = array[randomIndex];
+			if (!uniqueSet.has(word.word)) {
+				uniqueSet.add(word.word);
+				result.push(word);
+			}
+		}
+		return result;
+	};
+
 	const shuffleArray = (array) => {
 		for (let i = array.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
 			[array[i], array[j]] = [array[j], array[i]];
 		}
 		return array;
-	};
-
-	const shuffleWordChoices = (word) => {
-		const shuffledChoices = shuffleArray(word.choices);
-		return { ...word, choices: shuffledChoices };
 	};
 
 	const handleWordClick = (word) => {
@@ -91,11 +104,14 @@ const Sentences = () => {
 		} else {
 			setTimeout(() => {
 				setCurrentIndex((prevIndex) => prevIndex + 1);
-				setCurrentWord(words[currentIndex + 1]);
+				if (words.length > currentIndex + 1) {
+					setCurrentWord(words[currentIndex + 1]);
+					setShuffledChoices(shuffleArray(words[currentIndex + 1].choices));
+				}
 				setSelectedWords([]);
 				setShowResult(false);
 				setIsLoading(false);
-			}, 1500);
+			}, 1000);
 		}
 	};
 
@@ -115,7 +131,7 @@ const Sentences = () => {
 	const renderChoices = () => {
 		return (
 			<View className='flex-row flex-wrap justify-center'>
-				{currentWord.choices.map((item, index) => (
+				{shuffledChoices.map((item, index) => (
 					<CustomButton key={index} title={item} handlePress={() => handleWordClick(item)} containerStyles='mr-8 mb-4 min-w-[40] px-4' disabled={selectedWords.includes(item)} />
 				))}
 			</View>
