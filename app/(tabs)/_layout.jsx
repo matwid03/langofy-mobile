@@ -8,6 +8,7 @@ import Home from './home';
 import Dictionary from './dictionary';
 import Profile from './profile';
 import Sentences from '../levels/sentences';
+import TestLevel from '../levels/testLevel';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -27,6 +28,7 @@ const HomeStack = () => {
 			<Stack.Screen name='translation' component={Translation} />
 			<Stack.Screen name='imageWord' component={ImageWord} />
 			<Stack.Screen name='sentences' component={Sentences} />
+			<Stack.Screen name='testLevel' component={TestLevel} />
 		</Stack.Navigator>
 	);
 };

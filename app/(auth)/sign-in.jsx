@@ -4,13 +4,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import { Link, router } from 'expo-router';
-import { FIREBASE_AUTH } from '../../FirebaseConfig';
+import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useGlobalContext } from '../../context/GlobalProvider';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 const SignIn = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const { setHasTakenTest, setUser } = useGlobalContext();
 	const auth = FIREBASE_AUTH;
 
 	const submit = async () => {
@@ -19,10 +22,23 @@ const SignIn = () => {
 		} else {
 			setIsLoading(true);
 			try {
-				await signInWithEmailAndPassword(auth, email, password);
-				router.replace('/home');
+				const userCredential = await signInWithEmailAndPassword(auth, email, password);
+				const user = userCredential.user;
+				setUser(user);
+
+				const userDoc = await getDocs(query(collection(FIRESTORE_DB, 'users'), where('email', '==', email)));
+				if (!userDoc.empty) {
+					const userData = userDoc.docs[0].data();
+					setHasTakenTest(userData.hasTakenTest);
+
+					if (userData.hasTakenTest) {
+						router.replace('/home');
+					} else {
+						router.replace('/levels/testLevel');
+					}
+				}
 			} catch (error) {
-				alert(e, 'Nieprawidłowy login lub hasło!');
+				alert(error, 'Nieprawidłowy login lub hasło!');
 			} finally {
 				setIsLoading(false);
 			}

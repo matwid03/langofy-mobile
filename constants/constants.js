@@ -575,6 +575,95 @@ export const Easy = [
     sentenceAng: "I rode my bike to the park",
     choices: ["I", "rode", "yard", "my", "bike", "to", "the", "park", "car", "drive"]
   },
+  {
+    word: "fire",
+    sentence: "Ogień płonął jasno",
+    imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/036/627/341/small/ai-generated-burning-fire-flames-on-transparent-background-png.png",
+    translation: "ogień",
+    sentenceAng: "The fire burned brightly",
+    choices: ["The", "fire", "burned", "brightly", "flames", "heat", "warm", "light", "intensely"]
+  },
+  {
+    word: "guitar",
+    sentence: "Gitarzysta grał na koncercie rockowym",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/012/301/807/original/isometric-guitar-with-transparent-background-png.png",
+    translation: "gitara",
+    sentenceAng: "The guitarist played at the rock concert",
+    choices: ["The", "guitarist", "the", "played", "at", "rock", "concert", "electric", "drum", "singer"]
+  },
+  {
+    word: "king",
+    sentence: "Król siedział na swoim tronie",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/022/483/393/original/confident-3d-boy-king-great-for-empowerment-or-leadership-inspired-designs-transparent-background-free-png.png",
+    translation: "król",
+    sentenceAng: "The king sits on the throne",
+    choices: ["The", "king", "sits", "on", "his", , "the", "throne", "queen", "prince", "castle"]
+  },
+  {
+    word: "flower",
+    sentence: "Ona lubi zbierać kwiaty",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/029/139/896/original/purple-flower-purple-flower-purple-flower-with-transparent-background-ai-generative-free-png.png",
+    translation: "kwiat",
+    sentenceAng: "She likes to pick flowers",
+    choices: ["The", "She", "flowers", "in", "garden", "likes", "a", "sweet", "to", "pick"]
+  },
+  {
+    word: "ship",
+    sentence: "Statek płynie przez szerokie morze",
+    imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/009/379/359/small_2x/wooden-vintage-ship-clipart-design-illustration-free-png.png",
+    translation: "statek",
+    sentenceAng: "The ship sails across the wide sea",
+    choices: ["The", "ship", "the", "sails", "across", "wide", "sea", "boat", "yacht", "sailboat"]
+  },
+  {
+    word: "camera",
+    sentence: "Aparat fotograficzny robił piękne zdjęcia",
+    imgUrl: "https://pngimg.com/d/photo_camera_PNG101619.png",
+    translation: "aparat fotograficzny",
+    sentenceAng: "The camera takes beautiful photos",
+    choices: ["The", "camera", "takes", "beautiful", "photos", "photograph", "film", "picture", "video"]
+  },
+  {
+    word: "helmet",
+    sentence: "Kask ochronił motocyklistę",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/013/869/806/original/yellow-safety-helmet-png.png",
+    translation: "kask",
+    sentenceAng: "The helmet protected the motorcyclist",
+    choices: ["The", "helmet", "protected", "motorcyclist", "head", "injury", "hat", "safety"]
+  },
+  {
+    word: "jar",
+    sentence: "Słoik był pełen domowych przetworów",
+    imgUrl: "https://pngfre.com/wp-content/uploads/Jar-26.png",
+    translation: "słoik",
+    sentenceAng: "The jar was full of homemade preserves",
+    choices: ["The", "jar", "was", "full", "of", "homemade", "preserves", "bottle", "container", "empty"]
+  },
+  {
+    word: "lighthouse",
+    sentence: "Latarnia morska świeci w ciemnościach nocy",
+    imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/019/807/029/small_2x/lighthouse-graphic-clipart-design-free-png.png",
+    translation: "latarnia morska",
+    sentenceAng: "The lighthouse shines in the darkness of the night",
+    choices: ["The", "lighthouse", "shines", "in", "darkness", "of", "night", "light", "lightness", "coast", "the", "the"]
+  },
+  {
+    word: "nut",
+    sentence: "Orzech był trudny do otwarcia",
+    imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/024/321/076/small_2x/cashew-nuts-almond-hazelnut-and-blanched-peanuts-isolated-on-transparent-background-generate-ai-free-png.png",
+    translation: "orzech",
+    sentenceAng: "The nut was difficult to open",
+    choices: ["The", "nut", "was", "difficult", "to", "open", "wide", "right", "tool" < "chestnut"]
+  },
+  {
+    word: "bear",
+    sentence: "Niedźwiedź spał w swojej jaskini przez całą zimę",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/027/246/833/original/polar-bear-isolated-on-transparent-background-ai-generated-png.png",
+    translation: "niedźwiedź",
+    sentenceAng: "The bear slept in its cave all winter",
+    choices: ["The", "bear", "slept", "in", "its", "cave", "winter", "polar", "grizzly", "all", "spring"]
+  }
+
 ];
 
 export const Medium = [
@@ -666,7 +755,15 @@ export const Medium = [
     sentenceAng: "She chose an elegant outfit for the party",
     choices: ["She", "chose", "an", "elegant", "outfit", "for", "the", "party", "casual", "dinner"]
   },
-  ///obrazki
+  {
+    word: "enigmatic",
+    sentence: "Jej zagadkowy uśmiech skrywał wiele tajemnic",
+    imgUrl: null,
+    translation: "zagadkowy",
+    sentenceAng: "Her enigmatic smile hid many secrets",
+    choices: ["Her", "enigmatic", "smile", "hid", "many", "secrets", "mysterious", "puzzling", "hidden", "shy"]
+  },
+  //obrazki
   {
     word: "telescope",
     sentence: "Teleskop pozwala nam obserwować gwiazdy",
@@ -827,6 +924,142 @@ export const Medium = [
     sentenceAng: "Glasses improve vision",
     choices: ["Glasses", "improve", "vision", "see", "clear", "lens", "eye", "wear", "correct"]
   },
+  {
+    word: "fireplace",
+    sentence: "Ogień w kominku rozgrzewał cały dom",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/035/875/852/original/ai-generated-gas-fireplace-isolated-on-transparent-background-free-png.png",
+    translation: "ogień",
+    sentenceAng: "The fire in the fireplace warmed the entire house",
+    choices: ["The", "on", "fired", "fire", "in", "the", "fireplace", "warmed", "entire", "house", "extinguish"]
+  },
+  {
+    word: "jacket",
+    sentence: "Kurtka ochroniła mnie przed deszczem",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/036/520/746/original/ai-generated-jacket-clipart-design-illustration-free-png.png",
+    translation: "kurtka",
+    sentenceAng: "The jacket protected me from the rain",
+    choices: ["The", "jacket", "protected", "me", "from", "rain", "coat", "hat", "umbrella", "the", "security"]
+  },
+  {
+    word: "penguin",
+    sentence: "Pingwin stąpał po lodzie",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/024/704/531/original/penguin-with-ai-generated-free-png.png",
+    translation: "pingwin",
+    sentenceAng: "The penguin walked on the ice",
+    choices: ["The", "penguin", "walked", "on", "ice", "bird", "seal", "walrus", "the"]
+  },
+  {
+    word: "rainbow",
+    sentence: "Tęcza pojawiała się po deszczu",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/001/192/745/original/rainbow-png.png",
+    translation: "tęcza",
+    sentenceAng: "The rainbow appeared after the rain",
+    choices: ["The", "rainbow", "appeared", "after", "rain", "color", "sky", "the", "snow"]
+  },
+  {
+    word: "violin",
+    sentence: "Skrzypce grały delikatną melodyjkę",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/001/207/324/original/violin-png.png",
+    translation: "skrzypce",
+    sentenceAng: "The violin played a delicate melody",
+    choices: ["The", "violin", "played", "a", "delicate", "melody", "guitar", "piano", "cello"]
+  },
+  {
+    word: "waterfall",
+    sentence: "Niagara to jeden z największych wodospadów",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/023/450/459/original/waterfall-watercolor-clipart-ai-generated-free-png.png",
+    translation: "wodospad",
+    sentenceAng: "Niagara is one of the largest waterfalls",
+    choices: ["Niagara", "waterfalls", "of", "the", "impressed", "largest", "its", "size", "river", "is", "one"]
+  },
+  {
+    word: "notebook",
+    sentence: "Zeszyt był pełen ważnych informacji",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/021/515/251/original/gray-spiral-notebook-on-transparent-background-file-png.png",
+    translation: "zeszyt",
+    sentenceAng: "The notebook was full of important information",
+    choices: ["The", "notebook", "were", "was", "full", "of", "important", "information", "diary", "journal"]
+  },
+  {
+    word: "owl",
+    sentence: "Sowa latała cicho w nocy",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/023/858/922/original/ai-generative-owl-transparent-free-png.png",
+    translation: "sowa",
+    sentenceAng: "The owl flew silently at night",
+    choices: ["The", "owl", "flew", "silently", "at", "night", "bird", "eagle", "hawk"]
+  },
+  {
+    word: "pineapple",
+    sentence: "Ananas był słodki i soczysty",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/029/712/752/original/pineapple-transparent-background-png.png",
+    translation: "ananas",
+    sentenceAng: "The pineapple was sweet and juicy",
+    choices: ["The", "pineapple", "was", "sweet", "and", "juicy", "fruit", "apple", "banana"]
+  },
+  {
+    word: "whale",
+    sentence: "Wieloryb wyłonił się na powierzchnię oceanu",
+    imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/024/865/846/small/whale-with-ai-generated-free-png.png",
+    translation: "wieloryb",
+    sentenceAng: "The whale surfaced in the ocean",
+    choices: ["The", "whale", "surfaced", "in", "ocean", "the", "dolphin", "shark", "fish"]
+  },
+  {
+    word: "tent",
+    sentence: "Namiot został rozbity na szczycie góry",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/025/334/555/original/camping-tent-clipart-flat-design-on-transparent-background-camping-isolated-clipping-path-element-png.png",
+    translation: "namiot",
+    sentenceAng: "The tent was pitched on top of the mountain",
+    choices: ["The", "tent", "was", "pitched", "on", "top", "of", "mountain", "camping", "the"]
+  },
+  {
+    word: "boat",
+    sentence: "Łódź pływała spokojnie po jeziorze",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/039/213/779/original/ai-generated-ocean-boat-on-transparent-background-ai-generated-png.png",
+    translation: "łódź",
+    sentenceAng: "The boat calmly sailed on the lake",
+    choices: ["The", "boat", "calmly", "sailed", "on", "lake", "ship", "yacht", "sailboat", "the"]
+  },
+  {
+    word: "fox",
+    sentence: "Lis skradł się przez polną łąkę",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/036/113/371/original/ai-generated-fox-isolated-on-transparent-background-free-png.png",
+    translation: "lis",
+    sentenceAng: "The fox sneaked through the meadow",
+    choices: ["The", "fox", "sneaked", "through", "meadow", "animal", "wolf", "hound"]
+  },
+  {
+    word: "hammer",
+    sentence: "Młotek pomógł mi zbudować drewnianą skrzynkę",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/036/114/428/original/ai-generated-isolated-hammer-hardware-tool-on-a-transparent-background-file-format-png.png",
+    translation: "młotek",
+    sentenceAng: "The hammer helped me build a wooden box",
+    choices: ["The", "hammer", "helped", "me", "build", "a", "wooden", "box", "nail", "stone", "repair"]
+  },
+  {
+    word: "watermelon",
+    sentence: "Arbuz był soczysty i orzeźwiający w upalny dzień",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/029/200/375/original/watermelon-transparent-background-free-png.png",
+    translation: "arbuz",
+    sentenceAng: "The watermelon was juicy and refreshing on a hot day",
+    choices: ["The", "watermelon", "was", "juicy", "and", "refreshing", "on", "hot", "day", "a", "melon", "gooseberry"]
+  },
+  {
+    word: "desert",
+    sentence: "Po pustyni idzie wielbłąd",
+    imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/041/646/473/small_2x/ai-generated-martian-landscape-baren-desert-png.png",
+    translation: "pustynia",
+    sentenceAng: "A camel walks in the desert",
+    choices: ["A", "desert", "was", "deserted", "camel", "the", "in", "sand", "walks"]
+  },
+  {
+    word: "carousel",
+    sentence: "Karuzela obracała się powoli",
+    imgUrl: "https://pngimg.com/d/carousel_PNG2.png",
+    translation: "karuzela",
+    sentenceAng: "The carousel turned slowly",
+    choices: ["The", "carousel", "at", "the", "amusement", "park", "turned", "slowly", "ride"]
+  }
 ];
 
 export const Hard = [
@@ -875,7 +1108,7 @@ export const Hard = [
     word: "versatile",
     sentence: "Nowy pracownik jest bardzo wszechstronny",
     imgUrl: null,
-    translation: "wszechstronna",
+    translation: "wszechstronny",
     sentenceAng: "The new employee is very versatile",
     choices: ["She", "The", "new", "is", "very", "versatile", "employee", "flexible", "adaptable"]
   },
@@ -899,7 +1132,7 @@ export const Hard = [
     word: "diligent",
     sentence: "To jest bardzo pilna uczennica",
     imgUrl: null,
-    translation: "pilna",
+    translation: "pilny",
     sentenceAng: "She is a very diligent student",
     choices: ["She", "is", "very", "diligent", "in", "student", "work", "lazy", "hardworking", "careful"]
   },
@@ -907,7 +1140,7 @@ export const Hard = [
     word: "frugal",
     sentence: "Ona jest bardzo oszczędna",
     imgUrl: null,
-    translation: "oszczędna",
+    translation: "oszczędny",
     sentenceAng: "She is very frugal",
     choices: ["She", "is", "very", "frugal", "extravagant", "wasteful", "zealous"]
   },
@@ -915,9 +1148,25 @@ export const Hard = [
     word: "quaint",
     sentence: "To jest bardzo urocze miasteczko",
     imgUrl: null,
-    translation: "urocze",
+    translation: "uroczy",
     sentenceAng: "It is a very quaint town",
     choices: ["It", "is", "a", "very", "quaint", "modern", "disgusting", "picturesque"]
+  },
+  {
+    word: "renewable",
+    sentence: "Energia odnawialna jest kluczowa dla przyszłości",
+    imgUrl: null,
+    translation: "odnawialny",
+    sentenceAng: "Renewable energy is crucial for the future",
+    choices: ["Renewable", "energy", "is", "crucial", "for", "the", "future", "Sustainable", "green", "Resilable"]
+  },
+  {
+    word: "resilient",
+    sentence: "Ludzie są zdolni do bycia bardzo wytrzymałymi w trudnych czasach",
+    imgUrl: null,
+    translation: "wytrzymały",
+    sentenceAng: "People are capable of being very resilient in tough times",
+    choices: ["People", "are", "capable", "of", "being", "very", "resilient", "in", "tough", "times", "elastic", "springy"]
   },
 
   ////obrazki
@@ -1009,5 +1258,77 @@ export const Hard = [
     sentenceAng: "A hang glider flew over my house",
     choices: ["A", "needle", "hang", "thread", "were", "glider", "flew", "the", "over", "house", "to", "my"]
   },
+  {
+    word: "anchor",
+    sentence: "Kotwica utrzymywała statek na miejscu",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/026/774/570/original/anchor-with-ai-generated-free-png.png",
+    translation: "kotwica",
+    sentenceAng: "The anchor kept the ship in place",
+    choices: ["The", "anchor", "kept", "ship", "in", "place", "rope", "sail", "location"]
+  },
+  {
+    word: "feather",
+    sentence: "Pióro delikatnie opadło na podłogę",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/026/759/239/non_2x/feather-with-ai-generated-free-png.png",
+    translation: "pióro",
+    sentenceAng: "The feather gently fell to the floor",
+    choices: ["The", "feather", "gently", "fell", "to", "floor", "bird", "quill", "down", "the"]
+  },
+  {
+    word: "octopus",
+    sentence: "Ośmiornica zmieniała kolor skóry w zależności od otoczenia",
+    imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/036/397/946/small_2x/ai-generated-octopus-isolated-on-transparent-background-png.png",
+    translation: "ośmiornica",
+    sentenceAng: "The octopus changed skin color depending on the surroundings",
+    choices: ["The", "octopus", "changed", "skin", "color", "depending", "on", "surroundings", "squid"]
+  },
+  {
+    word: "iceberg",
+    sentence: "Góra lodowa dryfowała po zimnych wodach oceanu",
+    imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/032/187/495/small_2x/iceberg-hand-drawn-cartoon-style-illustration-ai-generated-free-png.png",
+    translation: "góra lodowa",
+    sentenceAng: "The iceberg drifted in the cold ocean waters",
+    choices: ["The", "iceberg", "drifted", "in", "cold", "ocean", "waters", "glacier", "floe", "the", "sea"]
+  },
+  {
+    word: "necklace",
+    sentence: "Naszyjnik błyszczał na jej szyi",
+    imgUrl: "https://pngimg.com/d/necklace_PNG66.png",
+    translation: "naszyjnik",
+    sentenceAng: "The necklace sparkled on her neck",
+    choices: ["The", "necklace", "sparkled", "on", "her", "neck", "bracelet", "earring", "jewelry", "ear", "head"]
+  },
+  {
+    word: "raccoon",
+    sentence: "Szop przeszedł przez ogród w poszukiwaniu jedzenia",
+    imgUrl: 'https://static.vecteezy.com/system/resources/previews/027/246/943/original/raccoon-isolated-on-transparent-background-ai-generated-png.png',
+    translation: "szop",
+    sentenceAng: "The raccoon walked through the garden in search of food",
+    choices: ["The", "raccoon", "walked", "through", "garden", "in", "search", "of", "food", "the", "hungry", "marten"]
+  },
+  {
+    word: "parachute",
+    sentence: "Spadochron otworzył się w powietrzu przed lądowaniem",
+    imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/040/533/991/small_2x/ai-generated-paraglider-in-the-sky-isolated-on-transparent-background-skydiving-generative-ai-png.png",
+    translation: "spadochron",
+    sentenceAng: "The parachute opened in the air before landing",
+    choices: ["The", "parachute", "opened", "in", "air", "before", "landing", "skydiving", "jump", "the"]
+  },
+  {
+    word: "chandelier",
+    sentence: "Żyrandol wisiał w centralnej części salonu",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/026/844/847/original/modern-grand-chandelier-luxury-lighting-fixture-luxury-ceiling-crystal-chandelier-clipart-sparkling-hanging-light-foyer-chandelier-interior-design-decorative-living-room-chandelier-free-png.png",
+    translation: "żyrandol",
+    sentenceAng: "The chandelier hung in the center of the living room",
+    choices: ["The", "chandelier", "hung", "in", "the", "center", "of", "living", "room", "ceiling", "the"]
+  },
+  {
+    word: "candlestick",
+    sentence: "Świecznik stał na stole podczas kolacji",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/021/381/150/original/watercolor-hand-drawn-gothic-candle-holder-png.png",
+    translation: "świecznik",
+    sentenceAng: "The candlestick stood on the table during dinner",
+    choices: ["The", "candlestick", "stood", "on", "the", "table", "during", "dinner", "candle", "stick", "lay"]
+  }
 ];
 

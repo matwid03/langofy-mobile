@@ -1,15 +1,26 @@
-import React from 'react';
-import { Redirect } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'expo-router';
 import { useGlobalContext } from '../context/GlobalProvider';
 
 const App = () => {
-	const { user, isLoading, isLoggedIn } = useGlobalContext();
+	const { user, isLoading, isLoggedIn, hasTakenTest } = useGlobalContext();
+	const router = useRouter();
 
-	if (!isLoading && isLoggedIn) {
-		return <Redirect href='/home' />;
-	} else {
-		return <Redirect href='/sign-in' />;
-	}
+	useEffect(() => {
+		if (!isLoading) {
+			if (isLoggedIn) {
+				if (hasTakenTest) {
+					router.replace('/home');
+				} else {
+					router.replace('/levels/testLevel');
+				}
+			} else {
+				router.replace('/sign-in');
+			}
+		}
+	}, [isLoading, isLoggedIn, hasTakenTest, user]);
+
+	return null;
 };
 
 export default App;

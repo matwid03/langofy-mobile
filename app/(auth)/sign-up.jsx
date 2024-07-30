@@ -36,6 +36,7 @@ const SignUp = () => {
 					dictionary: [],
 					points: 0,
 					avatarUrl: '',
+					hasTakenTest: false,
 				});
 
 				router.replace('sign-in');
