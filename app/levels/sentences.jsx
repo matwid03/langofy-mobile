@@ -71,7 +71,7 @@ const Sentences = () => {
 			const j = Math.floor(Math.random() * (i + 1));
 			[array[i], array[j]] = [array[j], array[i]];
 		}
-		return array;
+		return array.map((item, index) => ({ id: `${item}-${index}`, word: item }));
 	};
 
 	const handleWordClick = (word) => {
@@ -88,7 +88,10 @@ const Sentences = () => {
 		if (isLoading) return;
 		setIsLoading(true);
 
-		const userAnswer = selectedWords.join(' ').toLowerCase();
+		const userAnswer = selectedWords
+			.map((wordObj) => wordObj.word)
+			.join(' ')
+			.toLowerCase();
 		const correctAnswer = currentWord.sentenceAng.toLowerCase();
 		if (userAnswer === correctAnswer) {
 			setIsCorrect(true);
@@ -120,7 +123,7 @@ const Sentences = () => {
 		return (
 			<View className='flex-row flex-wrap justify-center'>
 				{shuffledChoices.map((item, index) => (
-					<CustomButton key={index} title={item} handlePress={() => handleWordClick(item)} containerStyles='mr-8 mb-4 min-w-[40] px-4' disabled={selectedWords.includes(item)} />
+					<CustomButton key={index} title={item.word} handlePress={() => handleWordClick(item)} containerStyles='mr-8 mb-4 min-w-[40] px-4' disabled={selectedWords.some((selected) => selected.id === item.id)} />
 				))}
 			</View>
 		);
@@ -135,7 +138,7 @@ const Sentences = () => {
 						<View className='min-h-[70px] bg-white w-80 p-4 mb-4 flex-wrap flex flex-row '>
 							{selectedWords.map((word, index) => (
 								<TouchableOpacity key={index} onPress={() => handleRemoveWord(index)}>
-									<Text className='text-black text-3xl'>{word} </Text>
+									<Text className='text-black text-3xl'>{word.word} </Text>
 								</TouchableOpacity>
 							))}
 						</View>

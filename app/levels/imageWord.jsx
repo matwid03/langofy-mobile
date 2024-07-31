@@ -28,7 +28,7 @@ const ImageWord = () => {
 	const { difficulty } = route.params;
 
 	useEffect(() => {
-		addWordsToDatabase();
+		// addWordsToDatabase();
 		const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
 			setKeyboardVisible(true);
 		});

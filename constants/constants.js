@@ -646,7 +646,7 @@ export const Easy = [
     imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/024/321/076/small_2x/cashew-nuts-almond-hazelnut-and-blanched-peanuts-isolated-on-transparent-background-generate-ai-free-png.png",
     translation: "orzech",
     sentenceAng: "The nut was difficult to open",
-    choices: ["The", "nut", "was", "difficult", "to", "open", "wide", "right", "tool" < "chestnut"]
+    choices: ["The", "nut", "was", "difficult", "to", "open", "wide", "right", "tool", "chestnut"]
   },
   {
     word: "bear",
@@ -658,6 +658,7 @@ export const Easy = [
   }
 
 ];
+
 
 export const Medium = [
   {
@@ -710,11 +711,11 @@ export const Medium = [
   },
   {
     word: "optimistic",
-    sentence: "On jest zawsze optymistyczna",
+    sentence: "On jest zawsze optymistyczny",
     imgUrl: null,
     translation: "optymistyczny",
     sentenceAng: "He is always optimistic",
-    choices: ["She", "is", "always", "optimistic", "pessimistic", "happy", "cheerful", "never"]
+    choices: ["He", "is", "always", "optimistic", "pessimistic", "happy", "cheerful", "never"]
   },
   {
     word: "humble",
@@ -738,7 +739,7 @@ export const Medium = [
     imageUrl: null,
     translation: "skomplikowany",
     sentenceAng: "The instructions were too complicated",
-    choices: ['The', 'instructions', 'are', 'were', 'just', 'too', 'complicated', 'to', 'follow', 'common']
+    choices: ['The', 'instructions', 'are', 'were', 'just', 'too', 'complicated', 'to', 'common']
   },
   {
     word: "flexible",
@@ -794,7 +795,7 @@ export const Medium = [
     sentence: "Mur został zbudowany z czerwonych cegieł.",
     imgUrl: "https://static.vecteezy.com/system/resources/previews/037/927/288/non_2x/ai-generated-bricks-isolated-on-transparent-background-free-png.png",
     translation: "cegła",
-    sentenceAng: "The wall was built with red bricks.",
+    sentenceAng: "The wall was built with red bricks",
     choices: ["The", "wall", "was", "built", "with", "red", "bricks", "painted", "blue", "stone"]
   },
   {
@@ -839,11 +840,11 @@ export const Medium = [
   },
   {
     word: "carpet",
-    sentence: "Nowy dywan leżał na podłodze",
+    sentence: "Nowy dywan leży na podłodze",
     imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/032/332/450/small_2x/oriental-magic-carpet-illustration-png.png",
     translation: "dywan",
-    sentenceAng: "The new carpet lay on the floor",
-    choices: ["The", "new", "carpet", "lay", "on", "the", "floor", "wall", "old", "rug"]
+    sentenceAng: "New carpet lies on the floor",
+    choices: ["New", "carpet", "lay", "on", "the", "floor", "wall", "lies", "rug"]
   },
   {
     word: "cottage",
@@ -879,10 +880,10 @@ export const Medium = [
   },
   {
     word: "turtle",
-    sentence: "Żółw wolno przechodził przez drogę",
+    sentence: "Żółw powoli przekroczył drogę",
     imgUrl: "https://static.vecteezy.com/system/resources/previews/035/098/584/non_2x/ai-generated-portrait-of-a-turtle-on-a-rock-with-a-transparent-background-generative-ai-free-png.png",
     translation: "żółw",
-    sentenceAng: "The turtle slowly crossed the road",
+    sentenceAng: "The turtle crossed the road slowly",
     choices: ["The", "turtle", "slowly", "crossed", "the", "road", "quickly", "ran", "rock"]
   },
   {
@@ -1027,7 +1028,7 @@ export const Medium = [
     imgUrl: "https://static.vecteezy.com/system/resources/previews/036/113/371/original/ai-generated-fox-isolated-on-transparent-background-free-png.png",
     translation: "lis",
     sentenceAng: "The fox sneaked through the meadow",
-    choices: ["The", "fox", "sneaked", "through", "meadow", "animal", "wolf", "hound"]
+    choices: ["The", "fox", "sneaked", "through", "meadow", "animal", "wolf", "hound", "the"]
   },
   {
     word: "hammer",
@@ -1302,7 +1303,7 @@ export const Hard = [
   {
     word: "raccoon",
     sentence: "Szop przeszedł przez ogród w poszukiwaniu jedzenia",
-    imgUrl: 'https://static.vecteezy.com/system/resources/previews/027/246/943/original/raccoon-isolated-on-transparent-background-ai-generated-png.png',
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/027/246/943/original/raccoon-isolated-on-transparent-background-ai-generated-png.png",
     translation: "szop",
     sentenceAng: "The raccoon walked through the garden in search of food",
     choices: ["The", "raccoon", "walked", "through", "garden", "in", "search", "of", "food", "the", "hungry", "marten"]
@@ -1332,4 +1333,3 @@ export const Hard = [
     choices: ["The", "candlestick", "stood", "on", "the", "table", "during", "dinner", "candle", "stick", "lay"]
   }
 ];
-

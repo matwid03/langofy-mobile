@@ -1,5 +1,5 @@
 import { ScrollView, Text, View, TouchableOpacity, Image } from 'react-native';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import CustomButton from '../../components/CustomButton';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,41 +14,51 @@ const Profile = () => {
 	const [avatar, setAvatar] = useState('');
 	const [topPlayers, setTopPlayers] = useState([]);
 
-	useFocusEffect(() => {
-		const fetchProfileData = async () => {
-			try {
-				const currentUser = FIREBASE_AUTH.currentUser;
-				if (currentUser) {
-					setUsername(currentUser.displayName);
+	useFocusEffect(
+		useCallback(() => {
+			const fetchProfileData = async () => {
+				try {
+					const currentUser = FIREBASE_AUTH.currentUser;
+					if (currentUser) {
+						setUsername(currentUser.displayName);
 
-					const userDocRef = doc(FIRESTORE_DB, 'users', currentUser.uid);
-					const userDoc = await getDoc(userDocRef);
-					if (userDoc.exists()) {
-						const userData = userDoc.data();
-						setAvatar(userData.avatarUrl || '');
+						const userDocRef = doc(FIRESTORE_DB, 'users', currentUser.uid);
+						const userDoc = await getDoc(userDocRef);
+						if (userDoc.exists()) {
+							const userData = userDoc.data();
+							setAvatar(userData.avatarUrl || '');
+						}
 					}
+				} catch (error) {
+					console.error('Błąd podczas pobierania danych użytkownika:', error);
 				}
-			} catch (error) {
-				console.error('Błąd podczas pobierania danych użytkownika:', error);
+			};
+
+			const fetchTopPlayers = async () => {
+				try {
+					const playersRef = collection(FIRESTORE_DB, 'users');
+					const q = query(playersRef, orderBy('points', 'desc'), limit(10));
+					const querySnapshot = await getDocs(q);
+
+					const players = querySnapshot.docs.map((doc) => doc.data());
+					setTopPlayers(players);
+				} catch (error) {
+					console.error('Błąd podczas pobierania rankingu:', error);
+				}
+			};
+
+			const controller = new AbortController();
+
+			if (FIREBASE_AUTH.currentUser) {
+				fetchProfileData(controller);
+				fetchTopPlayers(controller);
 			}
-		};
 
-		const fetchTopPlayers = async () => {
-			try {
-				const playersRef = collection(FIRESTORE_DB, 'users');
-				const q = query(playersRef, orderBy('points', 'desc'), limit(10));
-				const querySnapshot = await getDocs(q);
-
-				const players = querySnapshot.docs.map((doc) => doc.data());
-				setTopPlayers(players);
-			} catch (error) {
-				console.error('Błąd podczas pobierania rankingu:', error);
-			}
-		};
-
-		fetchProfileData();
-		fetchTopPlayers();
-	});
+			return () => {
+				controller.abort();
+			};
+		}, []),
+	);
 
 	const handleSignOut = async () => {
 		setIsLoading(true);
