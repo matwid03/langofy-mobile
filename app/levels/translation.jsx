@@ -1,13 +1,14 @@
 import { View, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import { FlatList } from 'react-native-gesture-handler';
 import CustomButton from '../../components/CustomButton';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
+import { updateUserPoints } from '../../constants/difficultyLevel';
 
 const Translation = () => {
 	const [words, setWords] = useState([]);
@@ -109,28 +110,14 @@ const Translation = () => {
 		if (currentIndex === 9) {
 			await updateUserPoints(points + (isCorrect ? 1 : 0));
 			navigation.navigate('home');
-		} else
+		} else {
 			setTimeout(() => {
-				{
-					setCurrentIndex((prevIndex) => prevIndex + 1);
-					setCurrentWord(words[currentIndex + 1]);
-					generateOptions(words[currentIndex + 1], fullWordsList);
-					setShowResult(false);
-					setIsLoading(false);
-				}
+				setCurrentIndex((prevIndex) => prevIndex + 1);
+				setCurrentWord(words[currentIndex + 1]);
+				generateOptions(words[currentIndex + 1], fullWordsList);
+				setShowResult(false);
+				setIsLoading(false);
 			}, 1000);
-	};
-
-	const updateUserPoints = async (finalPoints) => {
-		const user = FIREBASE_AUTH.currentUser;
-		if (user) {
-			const userDocRef = doc(FIRESTORE_DB, 'users', user.uid);
-			const userDoc = await getDoc(userDocRef);
-			if (userDoc.exists()) {
-				const userData = userDoc.data();
-				const newPoints = (userData.points || 0) + finalPoints;
-				await updateDoc(userDocRef, { points: newPoints });
-			}
 		}
 	};
 

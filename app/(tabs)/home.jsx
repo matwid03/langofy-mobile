@@ -12,37 +12,41 @@ const Home = () => {
 	const [points, setPoints] = useState(0);
 	const [difficulty, setDifficulty] = useState('easy');
 
-	useFocusEffect(() => {
-		const fetchUserPoints = async () => {
-			const user = FIREBASE_AUTH.currentUser;
-			if (!user) {
-				return;
-			}
-
-			try {
-				const userDocRef = doc(FIRESTORE_DB, 'users', user.uid);
-				const userDoc = await getDoc(userDocRef);
-				if (userDoc.exists()) {
-					const userData = userDoc.data();
-					const userPoints = userData.points || 0;
-					setPoints(userPoints);
-					console.log(userData.points);
-					if (userPoints < 50) {
-						setDifficulty('easy');
-					} else if (userPoints >= 50 && userPoints < 100) {
-						setDifficulty('medium');
-					} else {
-						setDifficulty('hard');
-					}
+	useFocusEffect(
+		React.useCallback(() => {
+			const fetchUserDetails = async () => {
+				const user = FIREBASE_AUTH.currentUser;
+				if (!user) {
+					return;
 				}
-			} catch (error) {
-				console.error('Błąd podczas pobierania punktów:', error);
-			}
-		};
-		console.log(difficulty);
 
-		fetchUserPoints();
-	});
+				try {
+					const userDocRef = doc(FIRESTORE_DB, 'users', user.uid);
+					const userDoc = await getDoc(userDocRef);
+					if (userDoc.exists()) {
+						const userData = userDoc.data();
+						const userPoints = userData.points || 0;
+						const userDifficultyLevel = userData.difficultyLevel || 'easy';
+
+						setPoints(userPoints);
+
+						setDifficulty(userDifficultyLevel);
+
+						// if (userData.difficultyLevel !== newDifficulty) {
+						// 	await updateDoc(userDocRef, { difficultyLevel: newDifficulty });
+						// }
+					}
+				} catch (error) {
+					console.error('Błąd podczas pobierania danych:', error);
+				}
+			};
+
+			console.log(points);
+			console.log(difficulty);
+
+			fetchUserDetails();
+		}),
+	);
 
 	const handleActivitySelect = (activityType) => {
 		navigation.navigate(activityType, { difficulty });

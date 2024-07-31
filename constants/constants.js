@@ -167,14 +167,7 @@ export const Easy = [
     sentenceAng: "The bird sits on a tree",
     choices: ["The", "It", "bird", "sits", "on", "a", "tree", "branch", "forest", "wood"]
   },
-  {
-    word: "umbrella",
-    sentence: "Wziąłem ze sobą parasol",
-    imgUrl: "https://static.vecteezy.com/system/resources/previews/020/954/855/original/umbrella-isolated-on-transparent-background-free-png.png",
-    translation: "parasol",
-    sentenceAng: "I took an umbrella with me",
-    choices: ["I", "She", "took", "an", "umbrella", "with", "me", "rain", "weather", "protection"]
-  },
+
   {
     word: "water",
     sentence: "Piję wodę",
@@ -668,6 +661,14 @@ export const Easy = [
 
 export const Medium = [
   {
+    word: "umbrella",
+    sentence: "Wziąłem ze sobą parasol",
+    imgUrl: "https://static.vecteezy.com/system/resources/previews/020/954/855/original/umbrella-isolated-on-transparent-background-free-png.png",
+    translation: "parasol",
+    sentenceAng: "I took an umbrella with me",
+    choices: ["I", "She", "took", "an", "umbrella", "with", "me", "rain", "weather", "protection"]
+  },
+  {
     word: "yard",
     sentence: "Bawię się na podwórku",
     imgUrl: null,
@@ -801,8 +802,8 @@ export const Medium = [
     sentence: "Wspiąłem się na drabinę, żeby naprawić dach",
     imgUrl: "https://static.vecteezy.com/system/resources/thumbnails/013/165/859/small_2x/wooden-ladder-color-png.png",
     translation: "drabina",
-    sentenceAng: "I climbed the ladder to fix the roof",
-    choices: ["I", "climbed", "the", "ladder", "to", "fix", "the", "roof", "lift", "broke"]
+    sentenceAng: "I climbed a ladder to fix the roof",
+    choices: ["I", "climbed", "a", "ladder", "to", "fix", "the", "roof", "lift", "broke"]
   },
   {
     word: "circus",
@@ -1150,7 +1151,7 @@ export const Hard = [
     imgUrl: null,
     translation: "uroczy",
     sentenceAng: "It is a very quaint town",
-    choices: ["It", "is", "a", "very", "quaint", "modern", "disgusting", "picturesque"]
+    choices: ["It", "is", "a", "very", "quaint", "modern", "disgusting", "town"]
   },
   {
     word: "renewable",
@@ -1200,14 +1201,14 @@ export const Hard = [
     imgUrl: "https://static.vecteezy.com/system/resources/previews/027/735/619/non_2x/binoculars-on-transparent-background-free-png.png",
     translation: "lornetka",
     sentenceAng: "I use binoculars to watch birds",
-    choices: ["I", "use", "binoculars", "to", "watch", "birds", "telescope", "view", "observe"]
+    choices: ["I", "use", "binoculars", "to", "watch", "birds", "telescope", "view", "saw"]
   },
   {
     word: "jellyfish",
     sentence: "Meduza pływa w oceanie",
     imgUrl: "https://static.vecteezy.com/system/resources/previews/025/400/588/original/watercolor-jellyfish-isolated-illustration-ai-generative-png.png",
     translation: "meduza",
-    sentenceAng: "Jellyfish swim in the ocean",
+    sentenceAng: "Jellyfish swims in the ocean",
     choices: ["Fish", "Jellyfish", "floats", "in", "the", "ocean", "sea", "swims", "creature"]
   },
   {

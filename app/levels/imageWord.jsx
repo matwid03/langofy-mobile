@@ -1,7 +1,7 @@
 import { View, Text, Image, Keyboard } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import CustomButton from '../../components/CustomButton';
 import FormField from '../../components/FormField';
@@ -10,6 +10,7 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { updateUserPoints } from '../../constants/difficultyLevel';
 
 const ImageWord = () => {
 	const [words, setWords] = useState([]);
@@ -27,7 +28,7 @@ const ImageWord = () => {
 	const { difficulty } = route.params;
 
 	useEffect(() => {
-		// addWordsToDatabase();
+		addWordsToDatabase();
 		const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
 			setKeyboardVisible(true);
 		});
@@ -106,19 +107,6 @@ const ImageWord = () => {
 		}
 	};
 
-	const updateUserPoints = async (finalPoints) => {
-		const user = FIREBASE_AUTH.currentUser;
-		if (user) {
-			const userDocRef = doc(FIRESTORE_DB, 'users', user.uid);
-			const userDoc = await getDoc(userDocRef);
-			if (userDoc.exists()) {
-				const userData = userDoc.data();
-				const newPoints = (userData.points || 0) + finalPoints;
-				await updateDoc(userDocRef, { points: newPoints });
-			}
-		}
-	};
-
 	return (
 		<SafeAreaView className='bg-slate-900 h-full '>
 			{currentWord && (
@@ -144,11 +132,10 @@ const ImageWord = () => {
 							<View className='flex flex-column items-center justify-center mt-4'>
 								{isCorrect ? <Icon name='check-circle' size={30} color='green' /> : <Icon name='times-circle' size={30} color='red' />}
 								<Text className='text-white mb-4 mt-2 text-xl'>{isCorrect ? 'Odpowiedź poprawna!' : 'Odpowiedź niepoprawna'}</Text>
-								{/* <Text>{currentWord.word}</Text> */}
 							</View>
 						)}
 					</View>
-					{!keyboardVisible && (
+					{!keyboardVisible && !showResult && (
 						<View className='absolute bottom-4 left-0 right-0 items-center'>
 							<View className='bg-gray-700 w-11/12 h-4 rounded-full'>
 								<View className='bg-green-500 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />

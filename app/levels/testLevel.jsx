@@ -80,10 +80,10 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 20,
-		backgroundColor: '#11111b', // adjust as needed
+		backgroundColor: '#11111b',
 	},
 	levelText: {
-		color: '#ffffff', // white color for the text
+		color: '#ffffff',
 		fontSize: 18,
 		marginBottom: 10,
 	},
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
 		marginVertical: 10,
 	},
 	lifeText: {
-		color: '#ffffff', // white color for the text
+		color: '#ffffff',
 		fontSize: 18,
 	},
 	heartIcon: {
@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
 		marginHorizontal: 5,
 	},
 	questionCount: {
-		color: '#ffffff', // white color for the text
+		color: '#ffffff',
 		fontSize: 18,
 		marginVertical: 10,
 	},
 	questionText: {
-		color: '#ffffff', // white color for the text
+		color: '#ffffff',
 		fontSize: 18,
 		marginVertical: 20,
 		textAlign: 'center',

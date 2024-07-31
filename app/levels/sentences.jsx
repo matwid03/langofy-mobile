@@ -1,13 +1,14 @@
 import { View, Text, TouchableOpacity, Keyboard } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import CustomButton from '../../components/CustomButton';
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { updateUserPoints } from '../../constants/difficultyLevel';
 
 const Sentences = () => {
 	const [words, setWords] = useState([]);
@@ -115,19 +116,6 @@ const Sentences = () => {
 		}
 	};
 
-	const updateUserPoints = async (finalPoints) => {
-		const user = FIREBASE_AUTH.currentUser;
-		if (user) {
-			const userDocRef = doc(FIRESTORE_DB, 'users', user.uid);
-			const userDoc = await getDoc(userDocRef);
-			if (userDoc.exists()) {
-				const userData = userDoc.data();
-				const newPoints = (userData.points || 0) + finalPoints;
-				await updateDoc(userDocRef, { points: newPoints });
-			}
-		}
-	};
-
 	const renderChoices = () => {
 		return (
 			<View className='flex-row flex-wrap justify-center'>
@@ -160,12 +148,14 @@ const Sentences = () => {
 							</View>
 						)}
 					</View>
-					<View className='absolute bottom-4 left-0 right-0 items-center'>
-						<View className='bg-gray-700 w-11/12 h-4 rounded-full'>
-							<View className='bg-green-500 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />
+					{!showResult && (
+						<View className='absolute bottom-4 left-0 right-0 items-center'>
+							<View className='bg-gray-700 w-11/12 h-4 rounded-full'>
+								<View className='bg-green-500 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />
+							</View>
+							<Text className='text-white mt-2'>{`${currentIndex + 1} / 10`}</Text>
 						</View>
-						<Text className='text-white mt-2'>{`${currentIndex + 1} / 10`}</Text>
-					</View>
+					)}
 				</TouchableWithoutFeedback>
 			)}
 		</SafeAreaView>

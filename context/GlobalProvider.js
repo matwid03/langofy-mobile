@@ -30,9 +30,7 @@ const GlobalProvider = ({ children }) => {
       } else {
         setIsLoggedIn(false);
         setUser(null);
-        setHasTakenTest(false);
         setIsLoading(false);
-
       }
     });
 
@@ -50,11 +48,26 @@ const GlobalProvider = ({ children }) => {
 
   const handleTestComplete = async (finalDifficultyLevel) => {
     const user = FIREBASE_AUTH.currentUser;
+    let initialPoints = 0;
+
+    switch (finalDifficultyLevel) {
+      case 'hard':
+        initialPoints = 100;
+        break;
+      case 'medium':
+        initialPoints = 50;
+        break;
+      case 'easy':
+        initialPoints = 0;
+        break;
+    }
+
     if (user) {
       const userDocRef = doc(FIRESTORE_DB, 'users', user.uid);
       await updateDoc(userDocRef, {
         hasTakenTest: true,
         difficultyLevel: finalDifficultyLevel,
+        points: initialPoints,
       });
       setHasTakenTest(true);
     }
@@ -63,7 +76,7 @@ const GlobalProvider = ({ children }) => {
 
   useEffect(() => {
     console.log('GlobalProvider state:', { isLoggedIn, hasTakenTest });
-  }, [isLoggedIn, user, hasTakenTest]);
+  }, [isLoggedIn, hasTakenTest]);
 
   return (
     <GlobalContext.Provider
