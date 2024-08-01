@@ -4,39 +4,92 @@ import fullHeart from '../../assets/icons/full_heart.png';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import CustomButton from '../../components/CustomButton';
 import { SafeAreaView, View, Text, Image, StyleSheet } from 'react-native';
+import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
+import { doc, getDoc } from 'firebase/firestore';
 
 const TestLevel = () => {
 	const { updateUserTestStatus, handleTestComplete } = useGlobalContext();
 	const [difficultyLevel, setDifficultyLevel] = useState('hard');
 	const [questionCount, setQuestionCount] = useState(1);
-	const [questionText, setQuestionText] = useState('');
+	const [question, setQuestion] = useState(null);
+	const [options, setOptions] = useState([]);
 	const [usersLife, setUsersLife] = useState([...Array(3).fill(true)]);
 	const maxQuestionCount = 20;
 
 	useEffect(() => {
-		setQuestionText('Tu je pytanieaa');
-		// tutaj funkcja do losowania pytania z bazy i ustawienia poprawnego layoutu pod zadanie
-	}, []);
+		loadQuestion();
+	}, [difficultyLevel]);
+
+	const fetchQuestions = async (level) => {
+		try {
+			const docRef = doc(FIRESTORE_DB, 'words', level);
+			const wordRef = await getDoc(docRef);
+			const wordList = wordRef.data();
+			if (wordList) {
+				const wordsArray = Object.values(wordList);
+
+				return getUniqueWords(wordsArray, 21);
+			}
+		} catch (error) {
+			console.error('Błąd podczas pobierania pytań:', error);
+			throw error;
+		}
+	};
+
+	const generateOptions = (word, allWords) => {
+		const correctOption = word.translation;
+		const incorrectOptions = allWords.filter((w) => w.word !== word.word).map((w) => w.translation);
+		const randomIncorrectOption = incorrectOptions[Math.floor(Math.random() * incorrectOptions.length)];
+		const allOptions = [correctOption, randomIncorrectOption].sort(() => Math.random() - 0.5);
+		setOptions(allOptions);
+	};
+
+	const loadQuestion = async () => {
+		if (FIREBASE_AUTH.currentUser) {
+			try {
+				const questions = await fetchQuestions(difficultyLevel);
+				const selectedQuestion = questions[Math.floor(Math.random() * questions.length)];
+				setQuestion(selectedQuestion);
+				generateOptions(selectedQuestion, questions);
+			} catch (error) {
+				console.error('Błąd podczas ładowania pytania:', error);
+			}
+		} else {
+			console.log('Użytkownik nie jest zalogowany');
+		}
+	};
+
+	const getUniqueWords = (array, count) => {
+		const uniqueSet = new Set();
+		const result = [];
+		while (uniqueSet.size < count && array.length > 0) {
+			const randomIndex = Math.floor(Math.random() * array.length);
+			const word = array[randomIndex];
+			if (!uniqueSet.has(word.word)) {
+				uniqueSet.add(word.word);
+				result.push(word);
+			}
+		}
+		return result;
+	};
 
 	const handleCorrectAnswer = () => {
 		setQuestionCount(questionCount + 1);
-		// tutaj funkcja do losowania pytania z bazy
+		loadQuestion();
 	};
 
 	const handleWrongAnswer = () => {
 		setUsersLife([...usersLife.splice(1), false]);
+		loadQuestion();
 	};
 
 	const changeLevelOfTest = () => {
 		setDifficultyLevel(difficultyLevel === 'hard' ? 'medium' : 'easy');
 		if (difficultyLevel === 'easy') {
-			console.log('end');
 			handleTestComplete('easy');
 			updateUserTestStatus(true);
-			// tutaj funkcja która kończy test, setuje userowi w bazie defaultowo level easy
 		} else {
 			setUsersLife([...Array(3).fill(true)]);
-			// tutaj funkcja do losowania pytania z bazy z odpowiedniego poziomu trudności
 		}
 	};
 
@@ -48,8 +101,6 @@ const TestLevel = () => {
 
 	useEffect(() => {
 		if (questionCount > maxQuestionCount) {
-			// tutaj funkcja która kończy test, setuje userowi w bazie defaultowo level na jakim skończył
-			console.log('end');
 			handleTestComplete(difficultyLevel);
 			updateUserTestStatus(true);
 		}
@@ -67,11 +118,16 @@ const TestLevel = () => {
 			<Text style={styles.questionCount}>
 				{questionCount} / {maxQuestionCount}
 			</Text>
-			<Text style={styles.questionText}>{questionText}</Text>
-			<View style={styles.buttonWrapper}>
-				<CustomButton title='Zepsute' handlePress={() => handleWrongAnswer()} />
-				<CustomButton title='Będzie chodzić' handlePress={() => handleCorrectAnswer()} />
-			</View>
+			{question && (
+				<>
+					<Text style={styles.questionText}>{question.word}</Text>
+					<View style={styles.buttonWrapper}>
+						{options.map((option, index) => (
+							<CustomButton containerStyles='mt-8 w-40' key={index} title={option} handlePress={() => (option === question.translation ? handleCorrectAnswer() : handleWrongAnswer())} />
+						))}
+					</View>
+				</>
+			)}
 		</SafeAreaView>
 	);
 };
