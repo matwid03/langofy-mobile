@@ -1,4 +1,4 @@
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, Alert, Image } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FormField from '../../components/FormField';
@@ -8,6 +8,7 @@ import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { collection, getDocs, query, where } from 'firebase/firestore';
+import logo from '../../assets/icons/logo.webp';
 
 const SignIn = () => {
 	const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ const SignIn = () => {
 
 	const submit = async () => {
 		if (!email || !password) {
-			alert('Wypełnij wszystkie pola!');
+			Alert.alert('Nieudane logowanie', 'Wypełnij wszystkie pola!');
 		} else {
 			setIsLoading(true);
 			try {
@@ -38,7 +39,7 @@ const SignIn = () => {
 					}
 				}
 			} catch (error) {
-				alert(error, 'Nieprawidłowy login lub hasło!');
+				Alert.alert('Nieudane logowanie', 'Nieprawidłowy login lub hasło!');
 			} finally {
 				setIsLoading(false);
 			}
@@ -46,18 +47,22 @@ const SignIn = () => {
 	};
 
 	return (
-		<SafeAreaView className='bg-slate-900 h-full'>
+		<SafeAreaView>
 			<ScrollView>
-				<View className='w-full justify-center min-h-[85vh] px-4'>
-					<FormField title='Email' value={email} handleChangeText={(e) => setEmail(e)} otherStyles='mt-7' keyboardType='email-address' />
+				<View className='bg-slate-200 w-full mt-16 px-4'>
+					<View className='items-center'>
+						<Image className='w-20 h-20' source={logo}></Image>
+						<Text className='text-2xl text-blue-800'>Langofy </Text>
+					</View>
+					<FormField title='Email' value={email} handleChangeText={(e) => setEmail(e)} otherStyles='mt-10' keyboardType='email-address' />
 
 					<FormField title='Hasło' value={password} handleChangeText={(e) => setPassword(e)} otherStyles='mt-7' />
 
-					<CustomButton disabled={isLoading} title='Zaloguj się' handlePress={submit} containerStyles='mt-7' isLoading={isLoading} />
+					<CustomButton disabled={isLoading} title='Zaloguj się' handlePress={submit} containerStyles='mt-24 mb-4' isLoading={isLoading} />
 
 					<View className='justify-center pt-5 flex-row gap-2'>
-						<Text className='text-lg text-gray-100'>Nie masz jeszcze konta?</Text>
-						<Link href='/sign-up' className='text-lg text-orange-700'>
+						<Text className='text-xl text-gray-950'>Nie masz jeszcze konta?</Text>
+						<Link href='/sign-up' className='text-xl text-blue-800'>
 							Zarejestruj się
 						</Link>
 					</View>

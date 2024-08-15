@@ -867,7 +867,7 @@ export const Medium = [
     sentence: "Latem zbieramy jagody w lesie",
     imgUrl: "https://static.vecteezy.com/system/resources/previews/029/228/605/original/berry-transparent-background-png.png",
     translation: "jagoda",
-    sentenceAng: "In the summer, we pick berries in the forest",
+    sentenceAng: "In the summer we pick berries in the forest",
     choices: ["In", "the", "cherries", "summer", "we", "pick", "berries", "in", "the", "forest", "fall", "buy"]
   },
   {

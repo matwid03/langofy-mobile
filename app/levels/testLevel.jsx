@@ -3,9 +3,10 @@ import emptyHeart from '../../assets/icons/empty_heart.png';
 import fullHeart from '../../assets/icons/full_heart.png';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import CustomButton from '../../components/CustomButton';
-import { SafeAreaView, View, Text, Image, StyleSheet } from 'react-native';
+import { SafeAreaView, View, Text, Image, StyleSheet, Alert } from 'react-native';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
+import logo from '../../assets/icons/logo.webp';
 
 const TestLevel = () => {
 	const { updateUserTestStatus, handleTestComplete } = useGlobalContext();
@@ -14,10 +15,16 @@ const TestLevel = () => {
 	const [question, setQuestion] = useState(null);
 	const [options, setOptions] = useState([]);
 	const [usersLife, setUsersLife] = useState([...Array(3).fill(true)]);
+	const [questionsList, setQuestionsList] = useState([]);
+	const [usedQuestionIndices, setUsedQuestionIndices] = useState([]);
 	const maxQuestionCount = 20;
 
 	useEffect(() => {
-		loadQuestion();
+		Alert.alert('Przejdź test!', 'Przed przystąpieniem do nauki sprawdźmy twój poziom znajomości angielskiego 😀');
+	}, []);
+
+	useEffect(() => {
+		initializeQuestions();
 	}, [difficultyLevel]);
 
 	const fetchQuestions = async (level) => {
@@ -27,12 +34,26 @@ const TestLevel = () => {
 			const wordList = wordRef.data();
 			if (wordList) {
 				const wordsArray = Object.values(wordList);
-
 				return getUniqueWords(wordsArray, 21);
 			}
 		} catch (error) {
 			console.error('Błąd podczas pobierania pytań:', error);
 			throw error;
+		}
+	};
+
+	const initializeQuestions = async () => {
+		if (FIREBASE_AUTH.currentUser) {
+			try {
+				const questions = await fetchQuestions(difficultyLevel);
+				setQuestionsList(questions);
+				setUsedQuestionIndices([]);
+				loadQuestion(questions, []);
+			} catch (error) {
+				console.error('Błąd podczas inicjalizacji pytań:', error);
+			}
+		} else {
+			console.log('Użytkownik nie jest zalogowany');
 		}
 	};
 
@@ -44,18 +65,16 @@ const TestLevel = () => {
 		setOptions(allOptions);
 	};
 
-	const loadQuestion = async () => {
-		if (FIREBASE_AUTH.currentUser) {
-			try {
-				const questions = await fetchQuestions(difficultyLevel);
-				const selectedQuestion = questions[Math.floor(Math.random() * questions.length)];
-				setQuestion(selectedQuestion);
-				generateOptions(selectedQuestion, questions);
-			} catch (error) {
-				console.error('Błąd podczas ładowania pytania:', error);
-			}
+	const loadQuestion = (questions, usedIndices) => {
+		const availableIndices = questions.map((_, index) => index).filter((index) => !usedIndices.includes(index));
+		if (availableIndices.length > 0) {
+			const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+			const selectedQuestion = questions[randomIndex];
+			setQuestion(selectedQuestion);
+			setUsedQuestionIndices([...usedIndices, randomIndex]);
+			generateOptions(selectedQuestion, questions);
 		} else {
-			console.log('Użytkownik nie jest zalogowany');
+			console.error('Brak dostępnych pytań.');
 		}
 	};
 
@@ -75,29 +94,34 @@ const TestLevel = () => {
 
 	const handleCorrectAnswer = () => {
 		setQuestionCount(questionCount + 1);
-		loadQuestion();
+		loadQuestion(questionsList, usedQuestionIndices);
 	};
 
 	const handleWrongAnswer = () => {
-		setUsersLife([...usersLife.splice(1), false]);
-		loadQuestion();
+		const updatedLives = [...usersLife];
+		updatedLives.pop();
+		setUsersLife(updatedLives);
+
+		if (updatedLives.every((life) => !life)) {
+			if (difficultyLevel === 'easy') {
+				handleTestComplete(difficultyLevel);
+				updateUserTestStatus(true);
+			} else {
+				changeLevelOfTest();
+			}
+		} else {
+			loadQuestion(questionsList, usedQuestionIndices);
+		}
 	};
 
 	const changeLevelOfTest = () => {
-		setDifficultyLevel(difficultyLevel === 'hard' ? 'medium' : 'easy');
-		if (difficultyLevel === 'easy') {
-			handleTestComplete('easy');
-			updateUserTestStatus(true);
-		} else {
-			setUsersLife([...Array(3).fill(true)]);
-		}
+		setDifficultyLevel((prevLevel) => {
+			if (prevLevel === 'hard') return 'medium';
+			if (prevLevel === 'medium') return 'easy';
+			return 'easy';
+		});
+		setUsersLife([...Array(3).fill(true)]);
 	};
-
-	useEffect(() => {
-		if (!usersLife.some((element) => element)) {
-			changeLevelOfTest();
-		}
-	}, [usersLife]);
 
 	useEffect(() => {
 		if (questionCount > maxQuestionCount) {
@@ -107,33 +131,47 @@ const TestLevel = () => {
 	}, [questionCount]);
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<Text style={styles.levelText}>Level: {difficultyLevel}</Text>
-			<View style={styles.heartWrapper}>
-				<Text style={styles.lifeText}>Życia:</Text>
+		<SafeAreaView className='bg-slate-200 mt-16 px-4'>
+			<Text className='text-xl text-gray-950 capitalize'>Poziom: {difficultyLevel}</Text>
+			<View className='flex-row items-center my-2'>
+				<Text className='text-xl text-gray-950'>Życia:</Text>
 				{usersLife.map((element, index) => (
-					<Image key={index} source={element ? fullHeart : emptyHeart} style={styles.heartIcon} />
+					<Image key={index} source={element ? fullHeart : emptyHeart} className='w-6 h-6 mx-2' />
 				))}
 			</View>
-			<Text style={styles.questionCount}>
-				{questionCount} / {maxQuestionCount}
+			<Text
+				className='text-xl text-gray-950 text-center mb-10 mt-10
+			'>
+				{questionCount < 20 ? questionCount : 20} / {maxQuestionCount}
 			</Text>
-			{question && (
-				<>
-					<Text style={styles.questionText}>{question.word}</Text>
-					<View style={styles.buttonWrapper}>
-						{options.map((option, index) => (
-							<CustomButton containerStyles='mt-8 w-40' key={index} title={option} handlePress={() => (option === question.translation ? handleCorrectAnswer() : handleWrongAnswer())} />
-						))}
-					</View>
-				</>
-			)}
+			{question &&
+				(questionCount < 21 ? (
+					<>
+						<Text
+							className='text-2xl text-gray-950 text-center mb-10
+					'>
+							{question.word}
+						</Text>
+						<View className='flex-row justify-between'>
+							{options.map((option, index) => (
+								<CustomButton containerStyles='mt-8 w-40' textStyles='text-xl' key={index} title={option} handlePress={() => (option === question.translation ? handleCorrectAnswer() : handleWrongAnswer())} />
+							))}
+						</View>
+					</>
+				) : (
+					<Text className='text-8xl text-center mt-4'>'👏🏻'</Text>
+				))}
+			<View className='items-center mt-40'>
+				<Image className='w-20 h-20' source={logo}></Image>
+				<Text className='text-2xl text-blue-800'>Langofy </Text>
+			</View>
 		</SafeAreaView>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
+		marginTop: 8,
 		flex: 1,
 		padding: 20,
 		backgroundColor: '#11111b',

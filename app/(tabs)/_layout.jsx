@@ -42,10 +42,10 @@ const TabsLayout = () => {
 					fontSize: 14,
 				},
 				tabBarStyle: {
-					backgroundColor: '#11111b',
+					backgroundColor: '#1f2937',
 				},
-				tabBarActiveTintColor: '#F57C00',
-				tabBarInactiveTintColor: 'gray',
+				tabBarActiveTintColor: '#2563eb',
+				tabBarInactiveTintColor: '#fff',
 				tabBarIcon: ({ color }) => {
 					let icon;
 					if (route.name === 'homeStack') {

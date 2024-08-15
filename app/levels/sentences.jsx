@@ -123,19 +123,19 @@ const Sentences = () => {
 		return (
 			<View className='flex-row flex-wrap justify-center'>
 				{shuffledChoices.map((item, index) => (
-					<CustomButton key={index} title={item.word} handlePress={() => handleWordClick(item)} containerStyles='mr-8 mb-4 min-w-[40] px-4' disabled={selectedWords.some((selected) => selected.id === item.id)} />
+					<CustomButton key={index} title={item.word} handlePress={() => handleWordClick(item)} containerStyles='mr-8 mb-4 min-w-[40] px-4 ' disabled={selectedWords.some((selected) => selected.id === item.id)} />
 				))}
 			</View>
 		);
 	};
 
 	return (
-		<SafeAreaView className='bg-slate-900 h-full'>
+		<SafeAreaView>
 			{currentWord && (
-				<TouchableWithoutFeedback className='bg-slate-900 h-full ' onPress={Keyboard.dismiss} accessible={false}>
+				<TouchableWithoutFeedback className='bg-slate-200 h-full ' onPress={Keyboard.dismiss} accessible={false}>
 					<View className='mt-10 w-full items-center justify-center'>
-						<Text className='text-white text-3xl mb-4'>{currentWord.sentence}</Text>
-						<View className='min-h-[70px] bg-white w-80 p-4 mb-4 flex-wrap flex flex-row '>
+						<Text className='text-gray-950 text-3xl mb-4'>{currentWord.sentence}</Text>
+						<View className='min-h-[70px] border-2 border-blue-600 rounded-md bg-white w-80 p-4 mb-4 flex-wrap flex flex-row '>
 							{selectedWords.map((word, index) => (
 								<TouchableOpacity key={index} onPress={() => handleRemoveWord(index)}>
 									<Text className='text-black text-3xl'>{word.word} </Text>
@@ -143,20 +143,20 @@ const Sentences = () => {
 							))}
 						</View>
 						<ScrollView className='flex mb-10 ml-6'>{renderChoices()}</ScrollView>
-						<CustomButton containerStyles='mb-4 w-80' title='Sprawdź' handlePress={handleCheckAnswer} disabled={isLoading} />
+						<CustomButton containerStyles='mb-4 w-80 bg-white border-2 border-blue-600' textStyles='text-gray-950' title='Sprawdź' handlePress={handleCheckAnswer} disabled={isLoading} />
 						{showResult && (
 							<View className='flex flex-column items-center justify-center mt-4'>
 								{isCorrect ? <Icon name='check-circle' size={30} color='green' /> : <Icon name='times-circle' size={30} color='red' />}
-								<Text className='text-white mb-4 mt-2 text-xl'>{isCorrect ? 'Odpowiedź poprawna!' : 'Odpowiedź niepoprawna'}</Text>
+								<Text className='text-gray-950 mb-4 mt-2 text-2xl'>{isCorrect ? 'Odpowiedź poprawna!' : 'Odpowiedź niepoprawna'}</Text>
 							</View>
 						)}
 					</View>
 					{!showResult && (
 						<View className='absolute bottom-4 left-0 right-0 items-center'>
 							<View className='bg-gray-700 w-11/12 h-4 rounded-full'>
-								<View className='bg-green-500 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />
+								<View className='bg-blue-600 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />
 							</View>
-							<Text className='text-white mt-2'>{`${currentIndex + 1} / 10`}</Text>
+							<Text className='text-gray-950 text-base mt-2'>{`${currentIndex + 1} / 10`}</Text>
 						</View>
 					)}
 				</TouchableWithoutFeedback>

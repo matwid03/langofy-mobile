@@ -1,4 +1,4 @@
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, Alert, Image } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FormField from '../../components/FormField';
@@ -7,6 +7,7 @@ import { Link, router } from 'expo-router';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import { doc, setDoc } from 'firebase/firestore';
+import logo from '../../assets/icons/logo.webp';
 
 const SignUp = () => {
 	const [username, setUsername] = useState('');
@@ -17,7 +18,7 @@ const SignUp = () => {
 
 	const submit = async () => {
 		if (!username || !email || !password) {
-			alert('Wypełnij wszystkie pola!');
+			Alert.alert('Nieudana rejestracja', 'Wypełnij wszystkie pola!');
 		} else {
 			setIsLoading(true);
 			try {
@@ -40,10 +41,10 @@ const SignUp = () => {
 				});
 
 				router.replace('sign-in');
-				alert('Pomyślna rejestracja!');
+				Alert.alert('Sukces', 'Pomyślna rejestracja!');
 			} catch (error) {
 				console.log(error);
-				alert(error.message);
+				Alert.alert('Nieudana rejestracja', 'Wprowadź poprawne dane!');
 			} finally {
 				setIsLoading(false);
 			}
@@ -51,20 +52,24 @@ const SignUp = () => {
 	};
 
 	return (
-		<SafeAreaView className='bg-slate-900 h-full'>
+		<SafeAreaView>
 			<ScrollView>
-				<View className='w-full justify-center min-h-[85vh] px-4 '>
-					<FormField title='Nazwa użytkownika' value={username} handleChangeText={(e) => setUsername(e)} otherStyles='mt-7' />
+				<View className='bg-slate-200 justify-center min-h-[85vh] px-4 '>
+					<View className='items-center'>
+						<Image className='w-20 h-20' source={logo}></Image>
+						<Text className='text-2xl text-blue-800'>Langofy </Text>
+					</View>
+					<FormField title='Nazwa użytkownika' value={username} handleChangeText={(e) => setUsername(e)} otherStyles='mt-10' />
 
 					<FormField title='Email' value={email} handleChangeText={(e) => setEmail(e)} otherStyles='mt-7' keyboardType='email-address' />
 
 					<FormField title='Hasło' value={password} handleChangeText={(e) => setPassword(e)} otherStyles='mt-7' />
 
-					<CustomButton disabled={isLoading} title='Zarejestruj się' handlePress={submit} containerStyles='mt-7' isLoading={isLoading} />
+					<CustomButton disabled={isLoading} title='Zarejestruj się' handlePress={submit} containerStyles='mt-20 mb-4' isLoading={isLoading} />
 
 					<View className='justify-center pt-5 flex-row gap-2'>
-						<Text className='text-lg text-gray-100'>Masz już konto?</Text>
-						<Link href='/sign-in' className='text-lg text-orange-700'>
+						<Text className='text-xl text-gray-950'>Masz już konto?</Text>
+						<Link href='/sign-in' className='text-xl text-blue-800'>
 							Zaloguj się
 						</Link>
 					</View>

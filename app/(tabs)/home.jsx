@@ -31,10 +31,6 @@ const Home = () => {
 						setPoints(userPoints);
 
 						setDifficulty(userDifficultyLevel);
-
-						// if (userData.difficultyLevel !== newDifficulty) {
-						// 	await updateDoc(userDocRef, { difficultyLevel: newDifficulty });
-						// }
 					}
 				} catch (error) {
 					console.error('Błąd podczas pobierania danych:', error);
@@ -53,13 +49,13 @@ const Home = () => {
 	};
 
 	return (
-		<SafeAreaView className='bg-slate-900 h-full'>
+		<SafeAreaView className='h-full bg-slate-200'>
 			<ScrollView>
-				<View className='w-full items-center justify-center min-h-[85vh] px-4 '>
-					<Text className='text-white text-4xl'>Wybierz Poziom</Text>
-					<CustomButton title='Słówka' handlePress={() => handleActivitySelect('translation')} containerStyles='mt-7 w-full' />
-					<CustomButton title='Obrazki' handlePress={() => handleActivitySelect('imageWord')} containerStyles='mt-7 w-full' />
-					<CustomButton title='Zdania' handlePress={() => handleActivitySelect('sentences')} containerStyles='mt-7 w-full' />
+				<View className=' items-center justify-center min-h-[85vh] px-4 '>
+					<Text className='text-gray-950 text-4xl'>Wybierz Konkurencję</Text>
+					<CustomButton title='Zgadnij Słówko' handlePress={() => handleActivitySelect('translation')} containerStyles='mt-8 w-full' />
+					<CustomButton title='Obrazek i Słówko' handlePress={() => handleActivitySelect('imageWord')} containerStyles='mt-8 w-full' />
+					<CustomButton title='Tworzenie Zdań' handlePress={() => handleActivitySelect('sentences')} containerStyles='mt-8 w-full' />
 				</View>
 			</ScrollView>
 		</SafeAreaView>

@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native';
+import { View, Text, Keyboard } from 'react-native';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DictionaryList from '../../components/DictionaryList';
 import AddWordToDictionary from '../../components/AddWordToDictionary';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const Dictionary = () => {
 	const addWordToDictionary = async (word, translation) => {
@@ -27,13 +28,15 @@ const Dictionary = () => {
 	};
 
 	return (
-		<SafeAreaView className='bg-slate-900 h-full'>
-			<View className='mt-4 flex-1 items-center justify-center min-h-[30vh]'>
-				<Text className='text-white text-2xl mb-4'>Słownik</Text>
-				<AddWordToDictionary addWord={addWordToDictionary} />
-				<DictionaryList />
-			</View>
-		</SafeAreaView>
+		<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+			<SafeAreaView className='bg-slate-200 h-full'>
+				<View className='mt-8 items-center justify-center min-h-[30vh] mb-52'>
+					<Text className='text-gray-950 text-2xl mb-4'>Słownik</Text>
+					<AddWordToDictionary addWord={addWordToDictionary} />
+					<DictionaryList />
+				</View>
+			</SafeAreaView>
+		</TouchableWithoutFeedback>
 	);
 };
 

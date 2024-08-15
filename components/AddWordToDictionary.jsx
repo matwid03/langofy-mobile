@@ -23,7 +23,7 @@ const AddWordToDictionary = ({ addWord }) => {
 		<View className='w-full px-4'>
 			<FormField title='Wprowadź słowo' value={word} handleChangeText={setWord} />
 			<FormField title='Wprowadź tłumaczenie' value={translation} handleChangeText={setTranslation} otherStyles='mt-7' />
-			<CustomButton title='Dodaj słowo' handlePress={handleSubmit} containerStyles='mt-7 w-full' />
+			<CustomButton title='Dodaj słowo' handlePress={handleSubmit} containerStyles='mt-10 mb-4 w-full' />
 		</View>
 	);
 };

@@ -108,10 +108,10 @@ const ImageWord = () => {
 	};
 
 	return (
-		<SafeAreaView className='bg-slate-900 h-full '>
+		<SafeAreaView>
 			{currentWord && (
-				<TouchableWithoutFeedback className='bg-slate-900 h-full ' onPress={Keyboard.dismiss} accessible={false}>
-					<View className='mt-20 w-full items-center justify-center'>
+				<TouchableWithoutFeedback className='bg-slate-200 h-full ' onPress={Keyboard.dismiss} accessible={false}>
+					<View className='mt-20 w-full items-center '>
 						<Image
 							className='w-80 h-80'
 							source={{
@@ -131,16 +131,16 @@ const ImageWord = () => {
 						{showResult && (
 							<View className='flex flex-column items-center justify-center mt-4'>
 								{isCorrect ? <Icon name='check-circle' size={30} color='green' /> : <Icon name='times-circle' size={30} color='red' />}
-								<Text className='text-white mb-4 mt-2 text-xl'>{isCorrect ? 'Odpowiedź poprawna!' : 'Odpowiedź niepoprawna'}</Text>
+								<Text className='text-gray-950 mb-4 mt-2 text-2xl'>{isCorrect ? 'Odpowiedź poprawna!' : 'Odpowiedź niepoprawna'}</Text>
 							</View>
 						)}
 					</View>
 					{!keyboardVisible && !showResult && (
 						<View className='absolute bottom-4 left-0 right-0 items-center'>
 							<View className='bg-gray-700 w-11/12 h-4 rounded-full'>
-								<View className='bg-green-500 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />
+								<View className='bg-blue-600 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />
 							</View>
-							<Text className='text-white mt-2'>{`${currentIndex + 1} / 10`}</Text>
+							<Text className='text-gray-950 text-base mt-2'>{`${currentIndex + 1} / 10`}</Text>
 						</View>
 					)}
 				</TouchableWithoutFeedback>

@@ -41,8 +41,8 @@ const DictionaryList = () => {
 	};
 
 	const renderItem = ({ item }) => (
-		<View className='p-2 border-b border-gray-300 flex-row justify-between items-center gap-2 mt-2 w-80'>
-			<Text className='text-white text-2xl'>
+		<View className='p-2 border-b border-gray-800 flex-row justify-between  gap-2 mt-2 w-80 '>
+			<Text className='text-gray-950 text-2xl'>
 				{item.word} - {item.translation}
 			</Text>
 			<TouchableOpacity onPress={() => handleRemoveWord(item)}>

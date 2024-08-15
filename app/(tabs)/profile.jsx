@@ -1,4 +1,4 @@
-import { ScrollView, Text, View, TouchableOpacity, Image } from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity, Image, Alert } from 'react-native';
 import React, { useCallback, useState } from 'react';
 import CustomButton from '../../components/CustomButton';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
@@ -63,7 +63,7 @@ const Profile = () => {
 	const handleSignOut = async () => {
 		setIsLoading(true);
 		await FIREBASE_AUTH.signOut();
-		alert('Wylogowano!');
+		Alert.alert('Sukces', 'Wylogowano!');
 		router.replace('/sign-in');
 		setIsLoading(false);
 	};
@@ -89,6 +89,7 @@ const Profile = () => {
 
 				const userDocRef = doc(FIRESTORE_DB, 'users', user.uid);
 				await updateDoc(userDocRef, { avatarUrl: downloadURL });
+				console.log('Selected image URI:', uri);
 
 				setAvatar(downloadURL);
 				setIsLoading(false);
@@ -100,29 +101,29 @@ const Profile = () => {
 	};
 
 	return (
-		<SafeAreaView className='bg-slate-900 h-full'>
+		<SafeAreaView className='bg-slate-200 h-full'>
 			<ScrollView>
-				<View className='w-full items-center justify-center min-h-[85vh] px-4 '>
+				<View className=' items-center justify-center min-h-[85vh] px-4 '>
 					<TouchableOpacity onPress={pickImage} className='mb-4'>
 						{avatar ? (
 							<Image source={{ uri: avatar }} className='w-24 h-24 rounded-full' />
 						) : (
-							<View className='w-24 h-24 rounded-full bg-gray-300 items-center justify-center'>
-								<Text className='text-xl text-gray-700'>Dodaj avatar</Text>
+							<View className='w-24 h-24 rounded-full bg-gray-400 items-center justify-center'>
+								<Text className='text-xl text-blue-500'>Dodaj avatar</Text>
 							</View>
 						)}
 					</TouchableOpacity>
-					<Text className='text-xl text-gray-100'>Nazwa użytkownika: {username}</Text>
-					<Text className='text-xl text-gray-100 '>Email: {FIREBASE_AUTH.currentUser?.email}</Text>
+					<Text className='text-xl text-gray-950'>Nazwa użytkownika: {username}</Text>
+					<Text className='text-xl text-gray-950 '>Email: {FIREBASE_AUTH.currentUser?.email}</Text>
 
-					<View className='mt-10 w-full border-t-2 border-orange-600 pt-6'>
-						<Text className='text-2xl text-gray-100 mb-4'>Ranking graczy:</Text>
+					<View className='mt-10 border-y-2 border-gray-800 pt-6'>
+						<Text className='text-2xl text-gray-950 mb-4'>Ranking graczy:</Text>
 						{topPlayers.map((player, index) => (
 							<View key={index} className='flex-row justify-between w-full mb-2 px-4'>
-								<Text className='text-xl text-gray-100'>
+								<Text className='text-xl text-gray-950'>
 									{index + 1}. {player.username}
 								</Text>
-								<Text className='text-xl text-gray-100'>{player.points} pkt</Text>
+								<Text className='text-xl text-gray-950'>{player.points} pkt</Text>
 							</View>
 						))}
 					</View>
