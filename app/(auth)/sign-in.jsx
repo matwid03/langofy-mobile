@@ -8,7 +8,7 @@ import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import logo from '../../assets/icons/logo.webp';
+import logo from '../../assets/icons/logo.png';
 
 const SignIn = () => {
 	const [email, setEmail] = useState('');
@@ -47,18 +47,17 @@ const SignIn = () => {
 	};
 
 	return (
-		<SafeAreaView>
+		<SafeAreaView className='h-full bg-slate-200'>
 			<ScrollView>
-				<View className='bg-slate-200 w-full mt-16 px-4'>
+				<View className='w-full px-4'>
 					<View className='items-center'>
-						<Image className='w-20 h-20' source={logo}></Image>
-						<Text className='text-2xl text-blue-800'>Langofy </Text>
+						<Image className='w-72 h-72' source={logo}></Image>
 					</View>
-					<FormField title='Email' value={email} handleChangeText={(e) => setEmail(e)} otherStyles='mt-10' keyboardType='email-address' />
+					<FormField title='Email' value={email} handleChangeText={(e) => setEmail(e)} keyboardType='email-address' />
 
 					<FormField title='Hasło' value={password} handleChangeText={(e) => setPassword(e)} otherStyles='mt-7' />
 
-					<CustomButton disabled={isLoading} title='Zaloguj się' handlePress={submit} containerStyles='mt-24 mb-4' isLoading={isLoading} />
+					<CustomButton disabled={isLoading} title='Zaloguj się' handlePress={submit} containerStyles='mt-20 mb-4' isLoading={isLoading} />
 
 					<View className='justify-center pt-5 flex-row gap-2'>
 						<Text className='text-xl text-gray-950'>Nie masz jeszcze konta?</Text>

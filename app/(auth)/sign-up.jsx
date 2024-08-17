@@ -7,7 +7,7 @@ import { Link, router } from 'expo-router';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import { doc, setDoc } from 'firebase/firestore';
-import logo from '../../assets/icons/logo.webp';
+import logo from '../../assets/icons/logo.png';
 
 const SignUp = () => {
 	const [username, setUsername] = useState('');
@@ -52,20 +52,19 @@ const SignUp = () => {
 	};
 
 	return (
-		<SafeAreaView>
+		<SafeAreaView className='h-full bg-slate-200'>
 			<ScrollView>
-				<View className='bg-slate-200 justify-center min-h-[85vh] px-4 '>
+				<View className='justify-center px-4 '>
 					<View className='items-center'>
-						<Image className='w-20 h-20' source={logo}></Image>
-						<Text className='text-2xl text-blue-800'>Langofy </Text>
+						<Image className='w-72 h-72' source={logo}></Image>
 					</View>
-					<FormField title='Nazwa użytkownika' value={username} handleChangeText={(e) => setUsername(e)} otherStyles='mt-10' />
+					<FormField title='Nazwa użytkownika' value={username} handleChangeText={(e) => setUsername(e)} />
 
-					<FormField title='Email' value={email} handleChangeText={(e) => setEmail(e)} otherStyles='mt-7' keyboardType='email-address' />
+					<FormField title='Email' value={email} handleChangeText={(e) => setEmail(e)} otherStyles='mt-4' keyboardType='email-address' />
 
-					<FormField title='Hasło' value={password} handleChangeText={(e) => setPassword(e)} otherStyles='mt-7' />
+					<FormField title='Hasło' value={password} handleChangeText={(e) => setPassword(e)} otherStyles='mt-4' />
 
-					<CustomButton disabled={isLoading} title='Zarejestruj się' handlePress={submit} containerStyles='mt-20 mb-4' isLoading={isLoading} />
+					<CustomButton disabled={isLoading} title='Zarejestruj się' handlePress={submit} containerStyles='mt-16 mb-2' isLoading={isLoading} />
 
 					<View className='justify-center pt-5 flex-row gap-2'>
 						<Text className='text-xl text-gray-950'>Masz już konto?</Text>

@@ -6,7 +6,7 @@ import CustomButton from '../../components/CustomButton';
 import { SafeAreaView, View, Text, Image, StyleSheet, Alert } from 'react-native';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../FirebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
-import logo from '../../assets/icons/logo.webp';
+import logo from '../../assets/icons/logo.png';
 
 const TestLevel = () => {
 	const { updateUserTestStatus, handleTestComplete } = useGlobalContext();
@@ -131,7 +131,7 @@ const TestLevel = () => {
 	}, [questionCount]);
 
 	return (
-		<SafeAreaView className='bg-slate-200 mt-16 px-4'>
+		<SafeAreaView className='bg-slate-200 mt-16 px-4 h-full'>
 			<Text className='text-xl text-gray-950 capitalize'>Poziom: {difficultyLevel}</Text>
 			<View className='flex-row items-center my-2'>
 				<Text className='text-xl text-gray-950'>Życia:</Text>
@@ -161,9 +161,8 @@ const TestLevel = () => {
 				) : (
 					<Text className='text-8xl text-center mt-4'>'👏🏻'</Text>
 				))}
-			<View className='items-center mt-40'>
-				<Image className='w-20 h-20' source={logo}></Image>
-				<Text className='text-2xl text-blue-800'>Langofy </Text>
+			<View className='items-center mt-20'>
+				<Image className='w-80 h-80' source={logo}></Image>
 			</View>
 		</SafeAreaView>
 	);
