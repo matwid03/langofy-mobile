@@ -1,8 +1,8 @@
 {
 	"expo": {
-		"name": "Lingify",
-		"slug": "lingify",
-		"scheme": "lingify",
+		"name": "Langofy",
+		"slug": "langofy",
+		"scheme": "langofy",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"userInterfaceStyle": "light",

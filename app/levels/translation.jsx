@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { doc, getDoc } from 'firebase/firestore';
@@ -109,7 +109,7 @@ const Translation = () => {
 		setShowResult(true);
 
 		if (currentIndex === 9) {
-			await updateUserPoints(points + (isCorrect ? 1 : 0));
+			await updateUserPoints(points + (correct ? 1 : 0));
 			navigation.navigate('home');
 		} else {
 			setTimeout(() => {
@@ -123,9 +123,9 @@ const Translation = () => {
 	};
 
 	const playPronunciation = async () => {
-		if (currentWord && currentWord.pronun) {
+		if (currentWord && currentWord.audio) {
 			try {
-				const { sound } = await Audio.Sound.createAsync({ uri: currentWord.pronun });
+				const { sound } = await Audio.Sound.createAsync({ uri: currentWord.audio }, { volume: 1.0 });
 				await sound.playAsync();
 			} catch (error) {
 				console.error('Błąd podczas odtwarzania wymowy:', error);
@@ -135,11 +135,14 @@ const Translation = () => {
 
 	return (
 		<SafeAreaView className='bg-slate-200 h-full '>
+			<View>
+				<Text className='ml-2 mt-2 text-lg text-blue-600'>Poprawne odpowiedzi: {points}</Text>
+			</View>
 			{currentWord && (
 				<View className='mt-16 w-full items-center justify-center'>
 					<View className='flex-row gap-10'>
 						<Text className='text-gray-950 text-3xl mb-16'>{currentWord.word}</Text>
-						<Icon name='volume-up' size={30} color='black' style={{ marginLeft: 10 }} onPress={playPronunciation} />
+						{currentWord.audio && <Icon name='volume-up' size={30} color='black' style={{ marginLeft: 10 }} onPress={playPronunciation} />}
 					</View>
 					<FlatList data={options} renderItem={({ item }) => <CustomButton containerStyles='mb-8 w-80' title={item.text} handlePress={() => handleCheckAnswer(item.correct)} key={item.id.toString()} disabled={isLoading} />} keyExtractor={(item) => item.id.toString()} />
 				</View>

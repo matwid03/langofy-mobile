@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import CustomButton from './CustomButton';
 import FormField from './FormField';
 
@@ -9,7 +9,7 @@ const AddWordToDictionary = ({ addWord }) => {
 
 	const handleSubmit = async () => {
 		if (!word || !translation) {
-			alert('Wprowadź słowo i jego tłumaczenie!');
+			Alert.alert('', 'Wprowadź słowo i jego tłumaczenie!');
 			return;
 		}
 

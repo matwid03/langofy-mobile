@@ -30,7 +30,7 @@ const Dictionary = () => {
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
 			<SafeAreaView className='bg-slate-200 h-full'>
-				<View className='mt-8 items-center justify-center min-h-[30vh] mb-52'>
+				<View className='mt-8 items-center justify-center min-h-[80vh] mb-52'>
 					<Text className='text-gray-950 text-2xl mb-4'>Słownik</Text>
 					<AddWordToDictionary addWord={addWordToDictionary} />
 					<DictionaryList />

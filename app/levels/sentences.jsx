@@ -93,17 +93,17 @@ const Sentences = () => {
 			.join(' ')
 			.toLowerCase();
 		const correctAnswer = currentWord.sentenceAng.toLowerCase();
-		if (userAnswer === correctAnswer) {
-			setIsCorrect(true);
+		const isAnswerCorrect = userAnswer === correctAnswer;
+		setIsCorrect(isAnswerCorrect);
+
+		if (isAnswerCorrect) {
 			setPoints((prevPoints) => prevPoints + 1);
-		} else {
-			setIsCorrect(false);
 		}
 
 		setShowResult(true);
 
 		if (currentIndex === 9) {
-			await updateUserPoints(points + (isCorrect ? 1 : 0));
+			await updateUserPoints(points + (isAnswerCorrect ? 1 : 0));
 			navigation.navigate('home');
 		} else {
 			setTimeout(() => {
@@ -130,36 +130,41 @@ const Sentences = () => {
 	};
 
 	return (
-		<SafeAreaView>
+		<SafeAreaView className='bg-slate-200 h-full '>
+			<View>
+				<Text className='ml-2 mt-2 text-lg text-blue-600'>Poprawne odpowiedzi: {points}</Text>
+			</View>
 			{currentWord && (
-				<TouchableWithoutFeedback className='bg-slate-200 h-full ' onPress={Keyboard.dismiss} accessible={false}>
-					<View className='mt-10 w-full items-center justify-center'>
-						<Text className='text-gray-950 text-3xl mb-4'>{currentWord.sentence}</Text>
-						<View className='min-h-[70px] border-2 border-blue-600 rounded-md bg-white w-80 p-4 mb-4 flex-wrap flex flex-row '>
-							{selectedWords.map((word, index) => (
-								<TouchableOpacity key={index} onPress={() => handleRemoveWord(index)}>
-									<Text className='text-black text-3xl'>{word.word} </Text>
-								</TouchableOpacity>
-							))}
+				<ScrollView>
+					<TouchableWithoutFeedback className='bg-slate-200 min-h-[90vh] ' onPress={Keyboard.dismiss} accessible={false}>
+						<View className='mt-2 w-full items-center justify-center'>
+							<Text className='text-gray-950 text-2xl mb-4 mx-2'>{currentWord.sentence}</Text>
+							<View className='min-h-[70px] border-2 border-blue-600 rounded-md bg-white w-80 p-4 mb-4 flex-wrap flex flex-row '>
+								{selectedWords.map((word, index) => (
+									<TouchableOpacity key={index} onPress={() => handleRemoveWord(index)}>
+										<Text className='text-black text-3xl'>{word.word} </Text>
+									</TouchableOpacity>
+								))}
+							</View>
+							<ScrollView className='flex mb-8 ml-6'>{renderChoices()}</ScrollView>
+							<CustomButton containerStyles='mb-4 w-80 bg-white border-2 border-blue-600' textStyles='text-gray-950' title='Sprawdź' handlePress={handleCheckAnswer} disabled={isLoading} />
+							{showResult && (
+								<View className='flex flex-column items-center justify-center mt-4'>
+									{isCorrect ? <Icon name='check-circle' size={30} color='green' /> : <Icon name='times-circle' size={30} color='red' />}
+									<Text className='text-gray-950 mb-4 mt-2 text-2xl'>{isCorrect ? 'Odpowiedź poprawna!' : 'Odpowiedź niepoprawna'}</Text>
+								</View>
+							)}
 						</View>
-						<ScrollView className='flex mb-10 ml-6'>{renderChoices()}</ScrollView>
-						<CustomButton containerStyles='mb-4 w-80 bg-white border-2 border-blue-600' textStyles='text-gray-950' title='Sprawdź' handlePress={handleCheckAnswer} disabled={isLoading} />
-						{showResult && (
-							<View className='flex flex-column items-center justify-center mt-4'>
-								{isCorrect ? <Icon name='check-circle' size={30} color='green' /> : <Icon name='times-circle' size={30} color='red' />}
-								<Text className='text-gray-950 mb-4 mt-2 text-2xl'>{isCorrect ? 'Odpowiedź poprawna!' : 'Odpowiedź niepoprawna'}</Text>
+						{!showResult && (
+							<View className='mt-6 items-center'>
+								<View className='bg-gray-700 w-11/12 h-4 rounded-full'>
+									<View className='bg-blue-600 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />
+								</View>
+								<Text className='text-gray-950 text-base mt-2'>{`${currentIndex + 1} / 10`}</Text>
 							</View>
 						)}
-					</View>
-					{!showResult && (
-						<View className='absolute bottom-4 left-0 right-0 items-center'>
-							<View className='bg-gray-700 w-11/12 h-4 rounded-full'>
-								<View className='bg-blue-600 h-4 rounded-full' style={{ width: `${((currentIndex + 1) / 10) * 100}%` }} />
-							</View>
-							<Text className='text-gray-950 text-base mt-2'>{`${currentIndex + 1} / 10`}</Text>
-						</View>
-					)}
-				</TouchableWithoutFeedback>
+					</TouchableWithoutFeedback>
+				</ScrollView>
 			)}
 		</SafeAreaView>
 	);

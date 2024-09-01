@@ -82,19 +82,20 @@ const ImageWord = () => {
 		if (isLoading) return;
 		setIsLoading(true);
 
-		if (userInput.trim().toLowerCase() === currentWord.word.toLowerCase()) {
-			setIsCorrect(true);
+		const isAnswerCorrect = userInput.trim().toLowerCase() === currentWord.word.toLowerCase();
+		setIsCorrect(isAnswerCorrect);
+
+		if (isAnswerCorrect) {
 			console.log('Odpowiedź poprawna');
 			setPoints((prevPoints) => prevPoints + 1);
 		} else {
-			setIsCorrect(false);
 			console.log('Odpowiedź niepoprawna');
 		}
 
 		setShowResult(true);
 
 		if (currentIndex === 9) {
-			await updateUserPoints(points + (isCorrect ? 1 : 0));
+			await updateUserPoints(points + (isAnswerCorrect ? 1 : 0));
 			navigation.navigate('home');
 		} else {
 			setTimeout(() => {
@@ -108,10 +109,15 @@ const ImageWord = () => {
 	};
 
 	return (
-		<SafeAreaView>
+		<SafeAreaView className='bg-slate-200 h-full '>
+			{!keyboardVisible && (
+				<View>
+					<Text className='ml-2 mt-2 text-lg text-blue-600'>Poprawne odpowiedzi: {points}</Text>
+				</View>
+			)}
 			{currentWord && (
-				<TouchableWithoutFeedback className='bg-slate-200 h-full ' onPress={Keyboard.dismiss} accessible={false}>
-					<View className='mt-20 w-full items-center '>
+				<TouchableWithoutFeedback className='min-h-[90vh] ' onPress={Keyboard.dismiss} accessible={false}>
+					<View className='mt-10 w-full items-center '>
 						<Image
 							className='w-80 h-80'
 							source={{

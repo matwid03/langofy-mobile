@@ -34,7 +34,7 @@ const TestLevel = () => {
 			const wordList = wordRef.data();
 			if (wordList) {
 				const wordsArray = Object.values(wordList);
-				return getUniqueWords(wordsArray, 21);
+				return getUniqueWords(wordsArray, 23);
 			}
 		} catch (error) {
 			console.error('Błąd podczas pobierania pytań:', error);
@@ -167,54 +167,5 @@ const TestLevel = () => {
 		</SafeAreaView>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		marginTop: 8,
-		flex: 1,
-		padding: 20,
-		backgroundColor: '#11111b',
-	},
-	levelText: {
-		color: '#ffffff',
-		fontSize: 18,
-		marginBottom: 10,
-	},
-	heartWrapper: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginVertical: 10,
-	},
-	lifeText: {
-		color: '#ffffff',
-		fontSize: 18,
-	},
-	heartIcon: {
-		width: 20,
-		height: 20,
-		marginHorizontal: 5,
-	},
-	questionCount: {
-		color: '#ffffff',
-		fontSize: 18,
-		marginVertical: 10,
-	},
-	questionText: {
-		color: '#ffffff',
-		fontSize: 18,
-		marginVertical: 20,
-		textAlign: 'center',
-	},
-	buttonWrapper: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-	},
-	button: {
-		flex: 1,
-		marginHorizontal: 5,
-		padding: 10,
-		alignItems: 'center',
-	},
-});
 
 export default TestLevel;
