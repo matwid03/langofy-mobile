@@ -2,10 +2,12 @@ import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 import { icons } from '../constants/icons';
 
-const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, ...props }) => {
+const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, isDictionary = false }) => {
 	const [showPassword, setshowPassword] = useState(false);
 	return (
 		<View className={`space-y-2 ${otherStyles}`}>
+			{isDictionary && <Text className='text-2xl'>{title}</Text>}
+
 			<View className='h-16 px-4 border-2 border-blue-800 rounded-xl items-center flex-row focus:border-blue-600'>
 				<TextInput className='flex-1 text-gray-950 text-xl' value={value} placeholder={placeholder} onChangeText={handleChangeText} secureTextEntry={title === 'Hasło' && !showPassword} />
 
