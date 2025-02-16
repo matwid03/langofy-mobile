@@ -58,11 +58,11 @@ const SignUp = () => {
 					<View className='items-center'>
 						<Image className='w-72 h-72' source={logo}></Image>
 					</View>
-					<FormField title='Nazwa użytkownika' value={username} handleChangeText={(e) => setUsername(e)} />
+					<FormField title='Nazwa użytkownika' placeholder='Nazwa użytkownika' value={username} handleChangeText={(e) => setUsername(e)} />
 
-					<FormField title='Email' value={email} handleChangeText={(e) => setEmail(e)} otherStyles='mt-4' keyboardType='email-address' />
+					<FormField title='Email' placeholder='Email' value={email} handleChangeText={(e) => setEmail(e)} otherStyles='mt-4' keyboardType='email-address' />
 
-					<FormField title='Hasło' value={password} handleChangeText={(e) => setPassword(e)} otherStyles='mt-4' />
+					<FormField title='Hasło' placeholder='Hasło' value={password} handleChangeText={(e) => setPassword(e)} otherStyles='mt-4' />
 
 					<CustomButton disabled={isLoading} title='Zarejestruj się' handlePress={submit} containerStyles='mt-16 mb-2' isLoading={isLoading} />
 

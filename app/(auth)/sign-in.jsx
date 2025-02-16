@@ -53,9 +53,9 @@ const SignIn = () => {
 					<View className='items-center'>
 						<Image className='w-72 h-72' source={logo}></Image>
 					</View>
-					<FormField title='Email' value={email} handleChangeText={(e) => setEmail(e)} keyboardType='email-address' />
+					<FormField title='Email' placeholder='Email' value={email} handleChangeText={(e) => setEmail(e)} keyboardType='email-address' />
 
-					<FormField title='Hasło' value={password} handleChangeText={(e) => setPassword(e)} otherStyles='mt-7' />
+					<FormField title='Hasło' placeholder='Hasło' value={password} handleChangeText={(e) => setPassword(e)} otherStyles='mt-7' />
 
 					<CustomButton disabled={isLoading} title='Zaloguj się' handlePress={submit} containerStyles='mt-20 mb-4' isLoading={isLoading} />
 
