@@ -2,6 +2,8 @@
 
 This app was created as part of my engineering thesis using React Native and **Expo**, providing a fun and interactive way for children to learn English through educational games.
 
+I also created a web version of this application - **https://github.com/matwid03/langofy-web_v2**
+
 ## Features
 
 ### 1. User Login and Registration
